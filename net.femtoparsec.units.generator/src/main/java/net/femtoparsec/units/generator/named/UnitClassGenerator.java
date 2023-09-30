@@ -1,8 +1,8 @@
 package net.femtoparsec.units.generator.named;
 
+import lombok.NonNull;
 import net.femtoparsec.units.generator.GenerationPath;
 import net.femtoparsec.units.generator.bean.Quantity;
-import lombok.NonNull;
 
 import java.nio.file.Path;
 

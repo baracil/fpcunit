@@ -1,10 +1,10 @@
 package net.femtoparsec.units.generator.named;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.femtoparsec.units.generator.bean.Operation;
 import net.femtoparsec.units.generator.bean.Quantity;
 import net.femtoparsec.units.generator.bean.Unit;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;

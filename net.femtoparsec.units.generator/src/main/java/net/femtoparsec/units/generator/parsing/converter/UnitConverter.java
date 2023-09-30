@@ -1,12 +1,12 @@
 package net.femtoparsec.units.generator.parsing.converter;
 
 import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.femtoparsec.units.generator.bean.Unit;
 import net.femtoparsec.units.generator.parsing.xml.XMLAbstractUnit;
 import net.femtoparsec.units.generator.parsing.xml.XMLSIUnit;
 import net.femtoparsec.units.generator.parsing.xml.XMLUnit;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import java.util.Objects;
 

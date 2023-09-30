@@ -2,9 +2,6 @@ package net.femtoparsec.units.api;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.femtoparsec.units.api.BasedUnitCode;
-import net.femtoparsec.units.api.Dimension;
-import net.femtoparsec.units.api.Dimensioned;
 
 import java.util.Arrays;
 import java.util.Comparator;

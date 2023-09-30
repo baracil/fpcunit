@@ -1,6 +1,8 @@
 package net.femtoparsec.units.core;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Singular;
 import net.femtoparsec.units.api.Measurement;
 import net.femtoparsec.units.api.Quantity;
 import net.femtoparsec.units.api.Unit;

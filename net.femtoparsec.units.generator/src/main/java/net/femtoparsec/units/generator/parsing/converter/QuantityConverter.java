@@ -3,14 +3,14 @@ package net.femtoparsec.units.generator.parsing.converter;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import net.femtoparsec.units.generator.parsing.xml.XMLConstantVisitor;
-import net.femtoparsec.units.generator.parsing.xml.XMLExpressionConstant;
-import net.femtoparsec.units.generator.parsing.xml.XMLValueConstant;
 import net.femtoparsec.units.api.Dimension;
 import net.femtoparsec.units.generator.bean.Constant;
 import net.femtoparsec.units.generator.bean.Quantity;
 import net.femtoparsec.units.generator.bean.Unit;
+import net.femtoparsec.units.generator.parsing.xml.XMLConstantVisitor;
+import net.femtoparsec.units.generator.parsing.xml.XMLExpressionConstant;
 import net.femtoparsec.units.generator.parsing.xml.XMLQuantity;
+import net.femtoparsec.units.generator.parsing.xml.XMLValueConstant;
 
 import java.util.Arrays;
 import java.util.List;

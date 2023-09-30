@@ -1,11 +1,8 @@
 package net.femtoparsec.units.generator.named;
 
-import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.femtoparsec.units.generator.GenerationPath;
-import net.femtoparsec.units.generator.GenerationPathProvider;
-import net.femtoparsec.units.generator.GenerationType;
 import net.femtoparsec.units.generator.UnitGenerator;
 import net.femtoparsec.units.generator.bean.Quantity;
 import net.femtoparsec.units.generator.parsing.JacksonQuantityReader;

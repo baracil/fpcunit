@@ -1,8 +1,8 @@
 package net.femtoparsec.units.generator.bean;
 
 import jakarta.annotation.Nullable;
-import net.femtoparsec.units.generator.StringUtils;
 import lombok.NonNull;
+import net.femtoparsec.units.generator.StringUtils;
 
 /**
  * @author Bastien Aracil

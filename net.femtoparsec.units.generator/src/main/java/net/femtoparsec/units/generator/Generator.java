@@ -1,7 +1,6 @@
 package net.femtoparsec.units.generator;
 
 import net.femtoparsec.units.generator.named.NamedGenerator;
-import net.femtoparsec.units.generator.parsing.JacksonQuantityReader;
 
 import java.io.IOException;
 import java.nio.file.Path;

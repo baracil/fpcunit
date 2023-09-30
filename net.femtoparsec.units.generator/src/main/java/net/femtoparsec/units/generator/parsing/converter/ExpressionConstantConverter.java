@@ -1,9 +1,9 @@
 package net.femtoparsec.units.generator.parsing.converter;
 
+import lombok.RequiredArgsConstructor;
 import net.femtoparsec.units.generator.bean.Constant;
 import net.femtoparsec.units.generator.bean.ExpressionConstant;
 import net.femtoparsec.units.generator.parsing.xml.XMLExpressionConstant;
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author Bastien Aracil

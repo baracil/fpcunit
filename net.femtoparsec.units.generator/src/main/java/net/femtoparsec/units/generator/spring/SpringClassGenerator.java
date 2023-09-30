@@ -1,9 +1,9 @@
 package net.femtoparsec.units.generator.spring;
 
+import lombok.NonNull;
 import net.femtoparsec.units.generator.GenerationPath;
 import net.femtoparsec.units.generator.bean.Quantity;
 import net.femtoparsec.units.generator.named.AbstractClassGenerator;
-import lombok.NonNull;
 
 import java.nio.file.Path;
 

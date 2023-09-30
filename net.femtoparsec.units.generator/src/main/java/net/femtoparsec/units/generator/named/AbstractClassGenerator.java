@@ -1,10 +1,10 @@
 package net.femtoparsec.units.generator.named;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.femtoparsec.units.generator.GenerationPath;
 import net.femtoparsec.units.generator.VelocityDumper;
 import net.femtoparsec.units.generator.bean.Quantity;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import org.apache.velocity.VelocityContext;
 
 import java.nio.file.Path;

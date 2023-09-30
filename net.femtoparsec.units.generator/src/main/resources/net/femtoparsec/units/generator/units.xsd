@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="fa:units" xmlns:u="fa:units" blockDefault="#all" elementFormDefault="qualified">
     <xsd:element name="units-information" type="u:UnitsInformation"/>
 
