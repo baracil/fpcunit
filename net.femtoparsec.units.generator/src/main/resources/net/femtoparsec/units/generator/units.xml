@@ -191,10 +191,6 @@
             <constants>
                 <value name="EARTH_SEA_LEVEL" unit-name="METER_PER_SQUARE_SECOND" value="9.80665"/>
             </constants>
-            <deprecated>
-                <deprecated-unit instance-name="METER_PER_SECOND_SQUARED"
-                                 reference-unit-name="METER_PER_SQUARE_SECOND"/>
-            </deprecated>
         </quantity>
 
         <quantity dimension="kg.m^2.s^-3.A^-1" name="Voltage">
