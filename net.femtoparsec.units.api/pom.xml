@@ -2,12 +2,12 @@
     <parent>
         <groupId>net.femtoparsec.units</groupId>
         <artifactId>units</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>units-api</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>${application.name} - ${module.name}</name>
