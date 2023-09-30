@@ -7,7 +7,7 @@
 
   <groupId>net.femtoparsec.units</groupId>
   <artifactId>units</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPHOST</version>
   <packaging>pom</packaging>
 
   <modules>
