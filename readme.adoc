@@ -39,6 +39,8 @@ Well no sorry, not yet
 
 == I'm missing a unit!
 
-All classes specific to a quantity, unit or measurement are generated. The source of the generation if the xml file "units.xml".
+All classes specific to a quantity, unit or measurement are generated. The source of the generation is the xml file https://github.com/baracil/fpcunit/blob/develop/net.femtoparsec.units.generator/src/main/resources/net/femtoparsec/units/generator/units.xml[units.xml].
 
-If you need to add a unit, you just need to modify this file and recompile the project.
+If you want to add a unit, you just need to modify this file and recompile the project.
+
+You can use the XML schema https://github.com/baracil/fpcunit/blob/develop/net.femtoparsec.units.generator/src/main/resources/net/femtoparsec/units/generator/units.xsd[units.xsd] to ensure a correct edition of the units.xml file.
