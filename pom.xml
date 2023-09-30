@@ -7,7 +7,7 @@
 
   <groupId>net.femtoparsec.units</groupId>
   <artifactId>units</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -16,6 +16,15 @@
     <module>net.femtoparsec.units.generator</module>
     <module>net.femtoparsec.units.named</module>
   </modules>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Bastien Aracil Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/baracil/fpcunit</url>
+    </repository>
+  </distributionManagement>
+
 
   <properties>
     <application.name>Unit Framework</application.name>
