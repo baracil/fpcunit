@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="fa:units" xmlns:u="fa:units" blockDefault="#all" elementFormDefault="qualified">
+    <xsd:element name="units-information" type="u:UnitsInformation"/>
+
+    <xsd:complexType name="UnitsInformation">
+        <xsd:sequence>
+            <xsd:element name="quantities" minOccurs="1" maxOccurs="1" type="u:Quantities"/>
+            <xsd:element name="operations" minOccurs="0" maxOccurs="1" type="u:Operations"/>
+            <xsd:element name="methods" minOccurs="0" maxOccurs="1" type="u:Methods"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Quantities">
+        <xsd:sequence>
+            <xsd:element name="quantity" minOccurs="0" maxOccurs="unbounded" type="u:Quantity"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Quantity">
+        <xsd:sequence>
+            <xsd:element name="si-unit" maxOccurs="1" minOccurs="1" type="u:SIUnit"/>
+            <xsd:element name="units" minOccurs="0" maxOccurs="1" type="u:Units"/>
+            <xsd:element name="constants" minOccurs="0" maxOccurs="1" type="u:Constants"/>
+            <xsd:element name="deprecated" minOccurs="0" maxOccurs="1" type="u:DeprecatedUnits"/>
+        </xsd:sequence>
+        <xsd:attribute name="dimension" type="xsd:string" use="required"/>
+        <xsd:attribute name="standard" default="true" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="name" type="xsd:ID" use="required"/>
+        <xsd:attribute name="quantity-name" type="xsd:string" use="optional" default="">
+            <xsd:annotation>
+                <xsd:documentation>If not specified, the quantity name will the ${name}Quantity</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="unit-name" type="xsd:NCName" use="optional"  default="">
+            <xsd:annotation>
+                <xsd:documentation>If not specified, the unit name will the ${name}Unit</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="measurement-name" type="xsd:NCName" use="optional"  default="">
+            <xsd:annotation>
+                <xsd:documentation>If not specified, the measurement name will the ${name}</xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="Constants">
+        <xsd:sequence>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:element maxOccurs="1" minOccurs="0" name="value" type="u:ValueConstant"/>
+                <xsd:element maxOccurs="1" minOccurs="0" name="expression" type="u:ExpressionConstant"/>
+
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ValueConstant">
+        <xsd:attribute name="name" type="xsd:NCName"/>
+        <xsd:attribute name="unit-name" type="xsd:NCName"/>
+        <xsd:attribute name="value" type="xsd:string">
+            <xsd:simpleType>
+                <xsd:restriction>
+                    <xsd:pattern value="(-?\d+(\.\d*)?(e\d+)?)( *[/*] *(-?\d+(\.\d*)?(e\d+)?))?"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="ExpressionConstant">
+        <xsd:attribute name="name" type="xsd:NCName"/>
+        <xsd:attribute name="expression" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="DeprecatedUnits">
+        <xsd:sequence>
+            <xsd:element name="deprecated-unit" type="u:DeprecatedUnit"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Units">
+        <xsd:sequence>
+            <xsd:element name="unit" minOccurs="0" maxOccurs="unbounded" type="u:Unit"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:complexType name="BaseUnit">
+        <xsd:attribute name="instance-name" type="xsd:ID" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="SIUnit" >
+        <xsd:complexContent>
+            <xsd:extension base="u:BaseUnit">
+                <xsd:attribute name="unit-name" type="xsd:string" use="optional" default="">
+                    <xsd:annotation>
+                        <xsd:documentation>If not specify, the dimension of the associated quantity will be use as name</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="DeprecatedUnit">
+        <xsd:complexContent>
+            <xsd:extension base="u:BaseUnit">
+                <xsd:attribute name="reference-unit-name" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="Unit">
+        <xsd:complexContent>
+            <xsd:extension base="u:BaseUnit">
+                <xsd:attribute name="unit-name" type="xsd:string" use="required"/>
+                <xsd:attribute name="factor" type="xsd:string" use="required" default="1">
+                    <xsd:annotation>
+                        <xsd:documentation>Factor to convert this unit to SI</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                        <xsd:restriction>
+                            <xsd:pattern value="(-?\d+(\.\d*)?(e\d+)?)( *[/*] *(-?\d+(\.\d*)?(e\d+)?))?"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+                <xsd:attribute name="offset" type="xsd:double" use="optional" default="0">
+                    <xsd:annotation>
+                        <xsd:documentation>Offset to apply (before applying the factor) to convert this unit to SI. The formula is then valueInSi = (thisValue+offset)*factor. This only applies to temperature quantity</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="Methods">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" name="method" type="u:Method"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Method">
+        <xsd:sequence>
+            <xsd:element name="code" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+        </xsd:sequence>
+        <xsd:attribute name="quantity" type="xsd:IDREF" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="Operations">
+        <xsd:sequence>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:element name="product" minOccurs="0" maxOccurs="1" type="u:ProductOperation"/>
+                <xsd:element name="square" minOccurs="0" maxOccurs="1" type="u:SquareOperation"/>
+                <xsd:element name="cubic" minOccurs="0" maxOccurs="1" type="u:CubicOperation"/>
+                <xsd:element name="inverse" minOccurs="0" maxOccurs="1" type="u:InverseOperation"/>
+                <xsd:element name="nsadd" minOccurs="0" maxOccurs="1" type="u:NonStandardAddOperation"/>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ProductOperation">
+        <xsd:attribute name="quantity1" type="xsd:IDREF" use="required"/>
+        <xsd:attribute name="quantity2" type="xsd:IDREF" use="required"/>
+        <xsd:attribute name="result" type="xsd:IDREF" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="NonStandardAddOperation">
+        <xsd:attribute name="non-standard-quantity" type="xsd:IDREF" use="required"/>
+        <xsd:attribute name="standard-quantity" type="xsd:IDREF" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="MonadicOperation">
+        <xsd:attribute name="quantity" type="xsd:IDREF" use="required"/>
+        <xsd:attribute name="result" type="xsd:IDREF" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="SquareOperation">
+        <xsd:complexContent>
+            <xsd:extension base="u:MonadicOperation">
+                <xsd:attribute name="operation" default="square">
+                    <xsd:simpleType>
+                        <xsd:restriction>
+                            <xsd:enumeration value="square"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="CubicOperation">
+        <xsd:complexContent>
+            <xsd:extension base="u:MonadicOperation">
+                <xsd:attribute name="operation" default="square">
+                    <xsd:simpleType>
+                        <xsd:restriction>
+                            <xsd:enumeration value="cubic"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="InverseOperation">
+        <xsd:complexContent>
+            <xsd:extension base="u:MonadicOperation">
+                <xsd:attribute name="operation" default="square">
+                    <xsd:simpleType>
+                        <xsd:restriction>
+                            <xsd:enumeration value="inverse"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+</xsd:schema>

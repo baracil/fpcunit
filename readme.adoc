@@ -1,0 +1,44 @@
+= FPC Units
+
+== Very Short Description
+This library provides objects to manipulate value with units. Instead of encoding the type of data and its unit in the variable name you can simply use the corresponding.
+
+For instance :
+
+[source, java]
+----
+    final Mass mass = Mass.TONNE.create(1);
+    final Length length = Length.METER.create(10_000);
+    final Time time = Time.parse("1 s");
+
+    final Speed speed = length.divide(time);
+    final Acceleration acceleration = speed.divide(time);
+    final Force force = acceleration.multiply(mass);
+    final Energy energy = length.multiply(force);
+
+    System.out.println("Energy value in J: "+energy.getValueInJoule());
+
+    final Volume volume = length.cubic();
+    final Density density = mass.divide(volume);
+
+    System.out.println("Density : "+density);
+    System.out.println("Density : "+density.inAdaptedUnit());
+----
+
+will output:
+
+----
+Energy value in J: 1.0E11
+Density : 1.0E-9 kg.m^-3
+Density : 0.001 mg.m^-3
+----
+
+== A Bit Longer Description
+
+Well no sorry, not yet
+
+== I'm missing a unit!
+
+All classes specific to a quantity, unit or measurement are generated. The source of the generation if the xml file "units.xml".
+
+If you need to add a unit, you just need to modify this file and recompile the project.

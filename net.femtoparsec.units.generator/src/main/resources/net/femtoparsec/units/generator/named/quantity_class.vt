@@ -1,0 +1,50 @@
+package ${generationPath.basePackageName}.named.quantity;
+#* @vtlvariable name="quantity" type="net.femtoparsec.units.generator.bean.Quantity" *#
+#* @vtlvariable name="generationPath" type="net.femtoparsec.units.generator.GenerationPath" *#
+#* @vtlvariable name="StringUtils" type="net.femtoparsec.units.generator.StringUtils" *#
+
+/**
+!! Automatically generated class. Any direct modifications will be lost during the next generation. To add Quantity/Unit/Measurement , constant or operations
+!! Check the "units.xml" file and the Generator class
+**/
+
+import java.util.List;
+import net.femtoparsec.units.core.QuantityBase;
+import net.femtoparsec.units.core.QuantityUnits;
+import ${generationPath.basePackageName}.named.Units;
+import ${generationPath.basePackageName}.named.unit.${quantity.unitName};
+import ${generationPath.basePackageName}.named.measurement.${quantity.measurementName};
+
+public final class ${quantity.quantityName} extends QuantityBase<${quantity.quantityName},${quantity.unitName},${quantity.measurementName}> {
+
+    public static final ${quantity.quantityName} INSTANCE = new ${quantity.quantityName}();
+
+    @Override
+    protected QuantityUnits<${quantity.quantityName}, ${quantity.unitName}, ${quantity.measurementName}> getQuantityUnits() {
+        return Units.$StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")_UNITS;
+    }
+
+    private ${quantity.quantityName}() {
+        super("${quantity.dimension.encoded}");
+    }
+
+    @Override
+    protected ${quantity.quantityName} getThis() {
+        return this;
+    }
+
+    @Override
+    public Class<${quantity.measurementName}> getMeasurementType() {
+        return ${quantity.measurementName}.class;
+    }
+
+    @Override
+    protected List<${quantity.unitName}> getUnits() {
+        return List.of(
+#foreach ($unit in ${quantity.units})
+            Units.${unit.instanceName},
+#end
+            Units.${quantity.siUnit.instanceName}
+        );
+    }
+}

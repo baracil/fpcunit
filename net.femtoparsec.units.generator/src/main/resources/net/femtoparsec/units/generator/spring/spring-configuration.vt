@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+#foreach($quantity in ${quantities})
+                <entry key="com.nanoscalemetrix.physics.units.named.measurement.${quantity.measurementName}" value="com.nanoscalemetrix.physics.units.spring.${quantity.measurementName}PropertyEditor"/>
+#end
+            </map>
+        </property>
+    </bean>
+</beans>
+#* @vtlvariable name="quantities" type="bean.generator.units.physics.net.femtoparsec.Quantity[]" *#

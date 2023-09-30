@@ -1,0 +1,41 @@
+package ${generationPath.basePackageName}.named;
+#* @vtlvariable name="quantity" type="net.femtoparsec.units.generator.bean.Quantity" *#
+#* @vtlvariable name="generationPath" type="net.femtoparsec.units.generator.GenerationPath" *#
+#* @vtlvariable name="quantities" type="net.femtoparsec.units.generator.bean.Quantity[]" *#
+#* @vtlvariable name="StringUtils" type="net.femtoparsec.units.generator.StringUtils" *#
+
+/**
+!! Automatically generated class. Any direct modifications will be lost during the next generation. To add Quantity/Unit/Measurement , constant or operations
+!! Check the "units.xml" file and the Generator class
+**/
+
+import java.util.List;
+import java.util.ArrayList;
+
+import net.femtoparsec.units.api.Measurement;
+import net.femtoparsec.units.api.Quantity;
+import net.femtoparsec.units.api.Unit;
+import net.femtoparsec.units.core.QuantityConsumer;
+import net.femtoparsec.units.core.QuantityFunction;
+import ${generationPath.basePackageName}.named.quantity.*;
+
+public final class Quantities {
+#foreach ($quantity in ${quantities})
+    public static final ${quantity.quantityName} $StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY") = ${quantity.quantityName}.INSTANCE;
+#end
+
+    public static <T> List<T> apply(QuantityFunction<T> function) {
+        final List<T> list = new ArrayList<>(${quantities.size()});
+        accept(quantity -> list.add(function.apply(quantity)));
+        return list;
+    }
+
+    public static void accept(QuantityConsumer consumer) {
+        #foreach ($quantity in ${quantities})
+            consumer.accept($StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY"));
+        #end
+    }
+
+
+
+}

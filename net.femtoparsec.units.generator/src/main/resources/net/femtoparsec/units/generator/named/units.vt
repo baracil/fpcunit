@@ -1,0 +1,41 @@
+package ${generationPath.basePackageName}.named;
+#* @vtlvariable name="quantities" type="bean.generator.units.physics.net.femtoparsec.Quantity[]" *#
+#* @vtlvariable name="generationPath" type="generator.units.physics.net.femtoparsec.GenerationPath" *#
+#* @vtlvariable name="StringUtils" type="generator.units.physics.net.femtoparsec.StringUtils" *#
+
+/**
+!! Automatically generated class. Any direct modifications will be lost during the next generation. To add Quantity/Unit/Measurement , constant or operations
+!! Check the "units.xml" file and the Generator class
+**/
+
+import net.femtoparsec.units.core.QuantityUnits;
+import ${generationPath.basePackageName}.named.quantity.*;
+import ${generationPath.basePackageName}.named.unit.*;
+import ${generationPath.basePackageName}.named.measurement.*;
+
+public final class Units {
+#foreach ($quantity in ${quantities})
+
+       public static final ${quantity.unitName} ${quantity.siUnit.instanceName} = new ${quantity.unitName}("${quantity.siUnit.unitName}");
+#if (${quantity.standard})
+#foreach ($unit in ${quantity.units})
+       public static final ${quantity.unitName} ${unit.instanceName} = new ${quantity.unitName}("${unit.unitName}", ${quantity.siUnit.instanceName}, ${unit.factor});
+#end
+#else
+#foreach ($unit in ${quantity.units})
+       public static final ${quantity.unitName} ${unit.instanceName} = new ${quantity.unitName}("${unit.unitName}", ${quantity.siUnit.instanceName}, ${unit.factor}, ${unit.offset});
+#end
+#end
+#end
+
+#foreach ($quantity in ${quantities})
+
+       public static final QuantityUnits<${quantity.quantityName}, ${quantity.unitName}, ${quantity.measurementName}> $StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")_UNITS = QuantityUnits.<${quantity.quantityName}, ${quantity.unitName}, ${quantity.measurementName}>builder()
+                        .unit(${quantity.siUnit.instanceName})
+#foreach ($unit in ${quantity.units})
+                        .unit(${unit.instanceName})
+#end
+                        .build();
+#end
+
+}

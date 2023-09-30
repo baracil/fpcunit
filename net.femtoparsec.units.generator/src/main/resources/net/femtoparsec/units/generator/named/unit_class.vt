@@ -1,0 +1,40 @@
+package ${generationPath.basePackageName}.named.unit;
+#* @vtlvariable name="quantity" type="net.femtoparsec.units.generator.bean.Quantity" *#
+#* @vtlvariable name="generationPath" type="net.femtoparsec.units.generator.GenerationPath" *#
+
+/**
+!! Automatically generated class. Any direct modifications will be lost during the next generation. To add Quantity/Unit/Measurement , constant or operations
+!! Check the "units.xml" file and the Generator class
+**/
+
+import net.femtoparsec.units.core.UnitBase;
+import ${generationPath.basePackageName}.named.quantity.${quantity.quantityName};
+import ${generationPath.basePackageName}.named.measurement.${quantity.measurementName};
+
+public class ${quantity.unitName} extends UnitBase<${quantity.quantityName},${quantity.unitName},${quantity.measurementName}> {
+
+    public static final ${quantity.quantityName} QUANTITY = ${quantity.quantityName}.INSTANCE;
+
+#if (${quantity.isStandard()})
+    public ${quantity.unitName}(String name, ${quantity.unitName} referenceSI, double factorToSI) {
+        super(name, referenceSI, factorToSI);
+    }
+#else
+    public ${quantity.unitName}(String name, ${quantity.unitName} referenceSI, double factorToSI, double offsetToSI) {
+        super(name, referenceSI, factorToSI, offsetToSI);
+    }
+#end
+    public ${quantity.unitName}(String name) {
+        super(name, ${quantity.measurementName}::new);
+    }
+
+    @Override
+    public ${quantity.quantityName} getQuantity() {
+        return ${quantity.quantityName}.INSTANCE;
+    }
+
+    @Override
+    protected ${quantity.unitName} getThis() {
+        return this;
+    }
+}

@@ -1,0 +1,149 @@
+package ${generationPath.basePackageName}.named.measurement;
+#* @vtlvariable name="quantity" type="bean.generator.units.physics.net.femtoparsec.Quantity" *#
+#* @vtlvariable name="generationPath" type="generator.units.physics.net.femtoparsec.GenerationPath" *#
+#* @vtlvariable name="StringUtils" type="generator.units.physics.net.femtoparsec.StringUtils" *#
+
+/**
+!! Automatically generated class. Any direct modifications will be lost during the next generation. To add Quantity/Unit/Measurement , constant or operations
+!! Check the "units.xml" file and the Generator class
+**/
+
+import lombok.NonNull;
+import ${generationPath.basePackageName}.named.Units;
+import ${generationPath.basePackageName}.named.Quantities;
+import net.femtoparsec.units.core.MeasurementOperations;
+
+import ${generationPath.basePackageName}.named.quantity.${quantity.quantityName};
+import ${generationPath.basePackageName}.named.unit.${quantity.unitName};
+#if (${quantity.isStandard()})
+import net.femtoparsec.units.core.LinearMeasurementBase;
+
+import java.util.Optional;
+
+
+public class ${quantity.measurementName} extends LinearMeasurementBase<${quantity.quantityName},${quantity.unitName},${quantity.measurementName}> {
+#else
+import net.femtoparsec.units.core.MeasurementBase;
+
+import java.util.Optional;
+
+
+public class ${quantity.measurementName} extends MeasurementBase<${quantity.quantityName},${quantity.unitName},${quantity.measurementName}> {
+#end
+
+    @NonNull
+    public static ${quantity.measurementName} parse(@NonNull String measurementAsString) {
+        return Quantities.${StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")}.parseMeasurement(measurementAsString);
+    }
+
+    @NonNull
+    public static Optional<${quantity.measurementName}> safeParse(@NonNull String measurementAsString) {
+        return Quantities.${StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")}.safeParseMeasurement(measurementAsString);
+    }
+
+    @NonNull
+    public static ${quantity.measurementName} parse(@NonNull String measurementAsString,@NonNull ${quantity.measurementName} defaultValue) {
+        return Quantities.${StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")}.parseMeasurement(measurementAsString, defaultValue);
+    }
+
+    @Deprecated
+    public static ${quantity.measurementName} valueOf(String measurementAsString) {
+        return Quantities.${StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")}.parseMeasurement(measurementAsString);
+    }
+
+    @Deprecated
+    public static ${quantity.measurementName} valueOf(String measurementAsString, ${quantity.measurementName} defaultValue) {
+        return Quantities.${StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")}.parseMeasurement(measurementAsString, defaultValue);
+    }
+
+    public static final ${quantity.unitName} SI = Units.${quantity.siUnit.instanceName};
+    public static final ${quantity.unitName} ${quantity.siUnit.instanceName} = Units.${quantity.siUnit.instanceName};
+#foreach ($unit in ${quantity.units})
+    public static final ${quantity.unitName} ${unit.instanceName} = Units.${unit.instanceName};
+#end
+
+
+#foreach ($constant in ${quantity.constants})
+#if($constant.isValue())
+    public static final ${quantity.measurementName} ${constant.name} = Units.${constant.unit.instanceName}.create(${constant.value});
+#elseif($constant.isExpression())
+    public static final ${quantity.measurementName} ${constant.name} = ${constant.expression};
+#end
+#end
+
+
+    public static final ${quantity.measurementName} NaN = Units.${quantity.siUnit.instanceName}.create(Double.NaN);
+#if (${quantity.standard})
+    public static final ${quantity.measurementName} ZERO = Units.${quantity.siUnit.instanceName}.create(0);
+#end
+
+    public ${quantity.measurementName}(double value, ${quantity.unitName} unit) {
+        super(value,unit);
+    }
+
+    @Override
+    protected ${quantity.measurementName} getThis() {
+        return this;
+    }
+
+#foreach ($operation in ${quantity.operations})
+#if (${operation.nonStandard})
+#if (${operation.methodName} == "Add")
+    public ${operation.result.measurementName} add(${operation.other.measurementName} ${operation.other.measurementName.toLowerCase()}) {
+        final double thisValue = this.getValueInSI();
+        final double otherValue = ${operation.other.measurementName.toLowerCase()}.getValueInSI();
+        final double result = thisValue + otherValue;
+        return this.getUnit().getReferenceSI().create(result).convert(this.getUnit());
+    }
+
+    public ${operation.result.measurementName} subtract(${operation.other.measurementName} ${operation.other.measurementName.toLowerCase()}) {
+        return this.add(${operation.other.measurementName.toLowerCase()}.negate());
+    }
+#elseif (${operation.methodName} == "Subtract")
+    public ${operation.result.measurementName} subtract(${operation.reference.measurementName} ${operation.reference.measurementName.toLowerCase()}) {
+        final double thisValue = this.getValueInSI();
+        final double otherValue = ${operation.reference.measurementName.toLowerCase()}.getValueInSI();
+        final double result = thisValue - otherValue;
+        return Units.${operation.result.siUnit.instanceName}.create(result);
+    }
+#end
+#else
+
+#if (${operation.monadic})
+    public ${operation.result.measurementName} ${operation.methodName.toLowerCase()}() {
+        return MeasurementOperations.${operation.decapitalizedMethodName}(this, Units.${operation.result.siUnit.instanceName});
+    }
+#else
+#set($var = $StringUtils.decapitalizeFirstLetter(${operation.other.measurementName}))
+    public ${operation.result.measurementName} ${operation.methodName.toLowerCase()}(${operation.other.measurementName} $var) {
+        return MeasurementOperations.${operation.decapitalizedMethodName}(this, $var, Units.${operation.result.siUnit.instanceName});
+    }
+#end
+#end
+#end
+#foreach($method in $quantity.methods)
+    ${method.code}
+#end
+
+    public ${quantity.measurementName} to${StringUtils.deHump(${quantity.siUnit.instanceName})}() {
+        return this.convert(Units.${quantity.siUnit.instanceName});
+    }
+
+#foreach($unit in $quantity.units)
+    public ${quantity.measurementName} to${StringUtils.deHump(${unit.instanceName})}() {
+        return this.convert(Units.${unit.instanceName});
+    }
+#end
+
+    public double getValueIn${StringUtils.deHump(${quantity.siUnit.instanceName})}() {
+       return this.getValueInUnit(Units.${quantity.siUnit.instanceName});
+    }
+
+#foreach($unit in $quantity.units)
+    public double getValueIn${StringUtils.deHump(${unit.instanceName})}() {
+        return this.getValueInUnit(Units.${unit.instanceName});
+    }
+#end
+
+
+}
