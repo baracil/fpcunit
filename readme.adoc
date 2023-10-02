@@ -33,6 +33,37 @@ Density : 1.0E-9 kg.m^-3
 Density : 0.001 mg.m^-3
 ----
 
+Temperature are also available:
+
+[source,java]
+----
+    final Temperature vapor = Temperature.FAHRENHEIT_212;
+    final Temperature ice = Temperature.FAHRENHEIT_32;
+    final DeltaTemperature deltaVaporIce = vapor.subtract(ice);
+    final Temperature lowerThanIce = ice.subtract(DeltaTemperature.DELTA_CELSIUS.create(5));
+
+    System.out.printf("Ice   in celsius: %s%n",ice.toCelsius().toPrettyString("%5.1f"));
+    System.out.printf("Vapor in celsius: %s%n",vapor.toCelsius().toPrettyString("%5.1f"));
+
+
+    System.out.printf("Delta Vapor Ice : %s%n",deltaVaporIce);
+    System.out.printf("Delta Vapor Ice : %s%n",deltaVaporIce.toDeltaFahrenheit());
+
+    System.out.printf("Ice minus 5°dC  : %s%n",lowerThanIce.toFahrenheit().toPrettyString("%5.1f"));
+    System.out.printf("Ice minus 5°dC  : %s%n",lowerThanIce.toCelsius().toPrettyString("%5.1f"));
+----
+
+will print:
+
+----
+Ice   in celsius:   0.0 °C
+Vapor in celsius: 100.0 °C
+Delta Vapor Ice : 100.0 dK
+Delta Vapor Ice : 180.0 d°F
+Ice minus 5°dC  :  23.0 °F
+Ice minus 5°dC  :  -5.0 °C
+----
+
 == A Bit Longer Description
 
 Well no sorry, not yet

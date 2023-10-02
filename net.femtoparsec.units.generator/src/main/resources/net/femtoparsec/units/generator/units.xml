@@ -36,6 +36,10 @@
             <si-unit instance-name="RECIPROCAL_METER_PER_SECOND"/>
         </quantity>
 
+        <quantity dimension="m^-2.s^2" name="ReciprocalSquaredSpeed">
+            <si-unit instance-name="RECIPROCAL_SQUARED_SPEED"/>
+        </quantity>
+
         <quantity dimension="kg" name="Mass">
             <si-unit instance-name="KILOGRAM"/>
             <units>
@@ -106,7 +110,7 @@
             <units>
                 <unit instance-name="CELSIUS" unit-name="°C" factor="1" offset="273.15"/>
                 <unit instance-name="FAHRENHEIT" unit-name="°F" factor="5/9." offset="459.67"/>
-                <unit instance-name="RANKINE" unit-name="°R" factor="5/9." offset="0"/>
+                <unit instance-name="RANKINE" unit-name="°R" factor="5/9."/>
             </units>
             <constants>
                 <value name="ABSOLUTE_ZERO" unit-name="KELVIN" value="0"/>
@@ -116,6 +120,9 @@
                 <value name="CELSIUS_30" unit-name="CELSIUS" value="30"/>
                 <value name="CELSIUS_80" unit-name="CELSIUS" value="80"/>
                 <value name="CELSIUS_100" unit-name="CELSIUS" value="100"/>
+                <value name="FAHRENHEIT_32" unit-name="FAHRENHEIT" value="32"/>
+                <value name="FAHRENHEIT_212" unit-name="FAHRENHEIT" value="212"/>
+                <value name="FAHRENHEIT_451" unit-name="FAHRENHEIT" value="451"/>
             </constants>
         </quantity>
 
@@ -158,7 +165,7 @@
             </units>
         </quantity>
 
-        <quantity dimension="m.s^-1" name="Velocity" measurement-name="Speed">
+        <quantity dimension="m.s^-1" name="Speed">
             <si-unit instance-name="METER_PER_SECOND"/>
             <units>
                 <unit instance-name="DECIMETER_PER_SECOND" unit-name="dm.s^-1" factor="1e-1"/>
@@ -181,6 +188,10 @@
                 <unit instance-name="MICROMETER_PER_HOUR" unit-name="µm.h^-1" factor="1e-6/3600"/>
                 <unit instance-name="NANOMETER_PER_HOUR" unit-name="nm.h^-1" factor="1e-9/3600"/>
             </units>
+        </quantity>
+
+        <quantity dimension="m^2.s^-2" name="SquaredSpeed">
+            <si-unit instance-name="SQUARE_METER_PER_SQUARE_SECOND"/>
         </quantity>
 
         <quantity dimension="m.s^-2" name="Acceleration">
@@ -487,9 +498,11 @@
         <inverse quantity="Time" result="Frequency"/>
         <inverse quantity="QuarticMeter" result="ReciprocalQuarticMeter"/>
         <inverse quantity="Volume" result="ReciprocalVolume"/>
+        <inverse quantity="SquaredSpeed" result="ReciprocalSquaredSpeed"/>
 
         <square quantity="Length" result="Surface"/>
         <square quantity="Surface" result="QuarticMeter"/>
+        <square quantity="Speed" result="SquaredSpeed"/>
 
         <cubic quantity="Length" result="Volume"/>
 
@@ -506,7 +519,7 @@
         <product quantity1="ReciprocalLength" quantity2="Volume" result="Surface"/>
         <product quantity1="ReciprocalLength" quantity2="QuarticMeter" result="Volume"/>
         <product quantity1="ReciprocalLength" quantity2="ReciprocalVolume" result="ReciprocalQuarticMeter"/>
-        <product quantity1="ReciprocalLength" quantity2="Velocity" result="Frequency"/>
+        <product quantity1="ReciprocalLength" quantity2="Speed" result="Frequency"/>
 
         <product quantity1="Density" quantity2="Volume" result="Mass"/>
         <product quantity1="Density" quantity2="Acceleration" result="PressureGradient"/>
@@ -514,11 +527,12 @@
         <product quantity1="Viscosity" quantity2="ReciprocalLengthSpeed" result="PressureGradient"/>
         <product quantity1="Mass" quantity2="ReciprocalLengthSpeed" result="Viscosity"/>
         <product quantity1="Mass" quantity2="Acceleration" result="Force"/>
+        <product quantity1="Mass" quantity2="SquaredSpeed" result="Energy"/>
 
         <product quantity1="Length" quantity2="ReciprocalLengthSpeed" result="Frequency"/>
 
-        <product quantity1="Surface" quantity2="ReciprocalLengthSpeed" result="Velocity"/>
-        <product quantity1="Surface" quantity2="Velocity" result="FlowRate"/>
+        <product quantity1="Surface" quantity2="ReciprocalLengthSpeed" result="Speed"/>
+        <product quantity1="Surface" quantity2="Speed" result="FlowRate"/>
         <product quantity1="Surface" quantity2="Surface" result="QuarticMeter"/>
 
         <product quantity1="Diffusivity" quantity2="Time" result="Surface"/>
@@ -534,8 +548,8 @@
         <product quantity1="Time" quantity2="FlowAcceleration" result="FlowRate"/>
         <product quantity1="Time" quantity2="FlowRate" result="Volume"/>
         <product quantity1="Time" quantity2="Jerk" result="Acceleration"/>
-        <product quantity1="Time" quantity2="Velocity" result="Length"/>
-        <product quantity1="Time" quantity2="Acceleration" result="Velocity"/>
+        <product quantity1="Time" quantity2="Speed" result="Length"/>
+        <product quantity1="Time" quantity2="Acceleration" result="Speed"/>
         <product quantity1="Time" quantity2="Frequency" result="DimensionLess"/>
         <product quantity1="Time" quantity2="DimensionLessAcceleration" result="Frequency"/>
 
