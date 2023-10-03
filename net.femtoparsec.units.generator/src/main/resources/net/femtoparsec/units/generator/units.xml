@@ -1,54 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <units-information xmlns="fa:units">
     <quantities>
-        <quantity dimension="m" name="Length">
-            <si-unit instance-name="METER"/>
+        <quantity dimension="kg.m^-4.s^-1" name="HydraulicResistivity">
+            <si-unit instance-name="PASCAL_SECOND_PER_CUBIC_METER" unit-name="Pa.s.m^-3"/>
             <units>
-                <unit instance-name="ANGSTROM" unit-name="Å" factor="1e-10"/>
-                <unit instance-name="NANOMETER" unit-name="nm" factor="1e-9"/>
-                <unit instance-name="MICROMETER" unit-name="µm" factor="1e-6"/>
-                <unit instance-name="MILLIMETER" unit-name="mm" factor="1e-3"/>
-                <unit instance-name="CENTIMETER" unit-name="cm" factor="1e-2"/>
-                <unit instance-name="DECIMETER" unit-name="dm" factor="1e-1"/>
-                <unit instance-name="KILOMETER" unit-name="km" factor="1e3"/>
-                <unit instance-name="LIGHT_YEAR" unit-name="ly" factor="9460730472580800.0"/>
-                <unit instance-name="YARD" unit-name="yd" factor="0.9144"/>
-                <unit instance-name="FEET" unit-name="ft" factor="0.3048"/>
-                <unit instance-name="INCH" unit-name="in" factor="0.0254"/>
-            </units>
-            <constants>
-                <value name="PLANCK_LENGTH" unit-name="METER" value="1.61619997e-35"/>
-            </constants>
-        </quantity>
-        <quantity dimension="m^-1" name="ReciprocalLength">
-            <si-unit instance-name="RECIPROCAL_METER"/>
-            <units>
-                <unit instance-name="RECIPROCAL_NANOMETER" unit-name="nm^-1" factor="1e9"/>
-                <unit instance-name="RECIPROCAL_MICROMETER" unit-name="µm^-1" factor="1e6"/>
-                <unit instance-name="RECIPROCAL_MILLIMETER" unit-name="mm^-1" factor="1e4"/>
-                <unit instance-name="RECIPROCAL_CENTIMETER" unit-name="cm^-1" factor="1e2"/>
-                <unit instance-name="RECIPROCAL_DECIMETER" unit-name="dm^-1" factor="1e1"/>
-                <unit instance-name="RECIPROCAL_KILOMETER" unit-name="km^-1" factor="1e-3"/>
+                <unit instance-name="BAR_MINUTE_PER_MICROLITER" unit-name="bar.min.µl^-1" factor="6e15"/>
+                <unit instance-name="MILLIBAR_MINUTE_PER_MICROLITER" unit-name="mbar.min.µl^-1" factor="6e12"/>
             </units>
         </quantity>
-
-        <quantity dimension="m^-1.s^-1" name="ReciprocalLengthSpeed">
-            <si-unit instance-name="RECIPROCAL_METER_PER_SECOND"/>
-        </quantity>
-
-        <quantity dimension="m^-2.s^2" name="ReciprocalSquaredSpeed">
-            <si-unit instance-name="RECIPROCAL_SQUARED_SPEED"/>
-        </quantity>
-
-        <quantity dimension="kg" name="Mass">
-            <si-unit instance-name="KILOGRAM"/>
-            <units>
-                <unit instance-name="TONNE" unit-name="t" factor="1e3"/>
-                <unit instance-name="GRAM" unit-name="g" factor="1e-3"/>
-                <unit instance-name="MILLIGRAM" unit-name="mg" factor="1e-6"/>
-            </units>
-        </quantity>
-
         <quantity dimension="kg.m^-3" name="Density">
             <si-unit instance-name="KILOGRAM_PER_CUBIC_METER"/>
             <units>
@@ -81,90 +40,128 @@
                 <value name="WATER_AT_100C" unit-name="KILOGRAM_PER_CUBIC_METER" value="958.4"/>
             </constants>
         </quantity>
-
-        <quantity dimension="s" name="Time">
-            <si-unit instance-name="SECOND"/>
+        <quantity dimension="kg.m^-2.s^-2" name="PressureGradient">
+            <si-unit instance-name="PASCAL_PER_METER" unit-name="Pa.m^-1"/>
+        </quantity>
+        <quantity dimension="kg.m^-1.s^-2" name="Pressure">
+            <si-unit instance-name="PASCAL" unit-name="Pa"/>
             <units>
-                <unit instance-name="MINUTE" unit-name="min" factor="60"/>
-                <unit instance-name="HOUR" unit-name="h" factor="3600"/>
-                <unit instance-name="DAY" unit-name="d" factor="86400"/>
-                <unit instance-name="MILLISECOND" unit-name="ms" factor="1e-3"/>
-                <unit instance-name="MICROSECOND" unit-name="µs" factor="1e-6"/>
-                <unit instance-name="NANOSECOND" unit-name="ns" factor="1e-9"/>
+                <unit instance-name="BAR" unit-name="bar" factor="1e5"/>
+                <unit instance-name="MILLIBAR" unit-name="mbar" factor="1e2"/>
+                <unit instance-name="ATMOSPHERE" unit-name="atm" factor="101325"/>
+                <unit instance-name="PSI" unit-name="psi" factor="6894.8"/>
+                <unit instance-name="TORR" unit-name="Torr" factor="133.3224"/>
+                <unit instance-name="HECTOPASCAL" unit-name="hPa" factor="1e2"/>
             </units>
         </quantity>
-
-        <quantity dimension="A" name="ElectricCurrent">
-            <si-unit instance-name="AMPERE"/>
+        <quantity dimension="kg.m^-1.s^-1" name="Viscosity" quantity-name="DynamicViscosityQuantity">
+            <si-unit instance-name="PASCAL_SECOND" unit-name="Pa.s"/>
             <units>
-                <unit instance-name="MILLIAMPERE" unit-name="mA" factor="1e-3"/>
+                <unit instance-name="MILLIPASCAL_SECOND" unit-name="mPa.s" factor="1e-3"/>
+                <unit instance-name="CENTIPASCAL_SECOND" unit-name="cPa.s" factor="1e-2"/>
+                <unit instance-name="POISE" unit-name="P" factor="0.1"/>
+                <unit instance-name="CENTI_POISE" unit-name="cP" factor="1e-3"/>
             </units>
         </quantity>
-
+        <quantity dimension="kg" name="Mass">
+            <si-unit instance-name="KILOGRAM"/>
+            <units>
+                <unit instance-name="TONNE" unit-name="t" factor="1e3"/>
+                <unit instance-name="GRAM" unit-name="g" factor="1e-3"/>
+                <unit instance-name="MILLIGRAM" unit-name="mg" factor="1e-6"/>
+            </units>
+        </quantity>
+        <quantity dimension="kg.m^1.s^-2" name="Force">
+            <si-unit instance-name="NEWTON" unit-name="N"/>
+            <units>
+                <unit instance-name="KILONEWTON" unit-name="kN" factor="1e3"/>
+                <unit instance-name="MILLINEWTON" unit-name="mN" factor="1e-3"/>
+            </units>
+        </quantity>
+        <quantity dimension="kg.m^1.s^-1" name="Impulse">
+            <si-unit instance-name="NEWTON_SECOND" unit-name="N.s^-1"/>
+            <units>
+                <unit instance-name="KILONEWTON_SECOND" unit-name="kN.s^-1" factor="1e3"/>
+                <unit instance-name="MILLINEWTON_SECOND" unit-name="mN.s^-1" factor="1e-3"/>
+            </units>
+        </quantity>
         <quantity dimension="kg.m^2.s^-3.A^-2" name="ElectricalResistance">
             <si-unit instance-name="OHM" unit-name="Ω"/>
         </quantity>
-
-        <quantity dimension="K" name="Temperature" standard="false">
-            <si-unit instance-name="KELVIN"/>
+        <quantity dimension="kg.m^2.s^-3.A^-1" name="Voltage">
+            <si-unit instance-name="VOLT" unit-name="V"/>
             <units>
-                <unit instance-name="CELSIUS" unit-name="°C" factor="1" offset="273.15"/>
-                <unit instance-name="FAHRENHEIT" unit-name="°F" factor="5/9." offset="459.67"/>
-                <unit instance-name="RANKINE" unit-name="°R" factor="5/9."/>
+                <unit instance-name="MILLIVOLT" unit-name="mV" factor="1e-3"/>
             </units>
-            <constants>
-                <value name="ABSOLUTE_ZERO" unit-name="KELVIN" value="0"/>
-                <value name="CELSIUS_0" unit-name="CELSIUS" value="0"/>
-                <value name="CELSIUS_4" unit-name="CELSIUS" value="4"/>
-                <value name="CELSIUS_25" unit-name="CELSIUS" value="25"/>
-                <value name="CELSIUS_30" unit-name="CELSIUS" value="30"/>
-                <value name="CELSIUS_80" unit-name="CELSIUS" value="80"/>
-                <value name="CELSIUS_100" unit-name="CELSIUS" value="100"/>
-                <value name="FAHRENHEIT_32" unit-name="FAHRENHEIT" value="32"/>
-                <value name="FAHRENHEIT_212" unit-name="FAHRENHEIT" value="212"/>
-                <value name="FAHRENHEIT_451" unit-name="FAHRENHEIT" value="451"/>
-            </constants>
         </quantity>
-
-
+        <quantity dimension="kg.m^2.s^-3" name="Power">
+            <si-unit instance-name="WATT" unit-name="W"/>
+        </quantity>
+        <quantity dimension="kg.m^2.s^-2.A^-2" name="Inductance">
+            <si-unit instance-name="HENRY" unit-name="H"/>
+            <units>
+                <unit instance-name="MILLIHENRY" unit-name="mH" factor="1e-3"/>
+            </units>
+        </quantity>
+        <quantity dimension="kg.m^2.s^-2.A^-1" name="MagneticFlux">
+            <si-unit instance-name="WEBER" unit-name="Wb"/>
+            <units>
+                <unit instance-name="VOLTS_PER_HERTZ" unit-name="V.Hz^-1" factor="1"/>
+            </units>
+        </quantity>
         <quantity dimension="kg.m^2.s^-2.dK^-1" name="EnergyPerKelvin">
             <si-unit instance-name="JOULE_PER_KELVIN" unit-name="J.dK^-1"/>
             <constants>
                 <value name="BOLTZMAN_CONSTANT" unit-name="JOULE_PER_KELVIN" value="1.38064852e-23"/>
             </constants>
         </quantity>
-
-        <quantity dimension="dK" name="DeltaTemperature">
-            <si-unit instance-name="DELTA_KELVIN"/>
+        <quantity dimension="kg.m^2.s^-2" name="Energy">
+            <si-unit instance-name="JOULE" unit-name="J"/>
             <units>
-                <unit instance-name="DELTA_CELSIUS" unit-name="d°C" factor="1"/>
-                <unit instance-name="DELTA_FAHRENHEIT" unit-name="d°F" factor="5./9."/>
-                <unit instance-name="DELTA_RANKINE" unit-name="d°R" factor="5./9."/>
+                <unit instance-name="NEWTON_METER" unit-name="Nm" factor="1"/>
+                <unit instance-name="NEWTON_MILLIMETER" unit-name="Nmm" factor="1e-3"/>
+            </units>
+        </quantity>
+
+        <quantity dimension="m^-4" name="ReciprocalQuarticMeter">
+            <si-unit instance-name="RECIPROCAL_QUARTIC_METER"/>
+        </quantity>
+        <quantity dimension="m^-3" name="ReciprocalVolume">
+            <si-unit instance-name="RECIPROCAL_CUBIC_METER"/>
+        </quantity>
+        <quantity dimension="m^-2.s^2" name="ReciprocalSquaredSpeed">
+            <si-unit instance-name="RECIPROCAL_SQUARED_SPEED"/>
+        </quantity>
+        <quantity dimension="m^-1.s^-1" name="ReciprocalLengthSpeed">
+            <si-unit instance-name="RECIPROCAL_METER_PER_SECOND"/>
+        </quantity>
+        <quantity dimension="m^-1" name="ReciprocalLength">
+            <si-unit instance-name="RECIPROCAL_METER"/>
+            <units>
+                <unit instance-name="RECIPROCAL_NANOMETER" unit-name="nm^-1" factor="1e9"/>
+                <unit instance-name="RECIPROCAL_MICROMETER" unit-name="µm^-1" factor="1e6"/>
+                <unit instance-name="RECIPROCAL_MILLIMETER" unit-name="mm^-1" factor="1e4"/>
+                <unit instance-name="RECIPROCAL_CENTIMETER" unit-name="cm^-1" factor="1e2"/>
+                <unit instance-name="RECIPROCAL_DECIMETER" unit-name="dm^-1" factor="1e1"/>
+                <unit instance-name="RECIPROCAL_KILOMETER" unit-name="km^-1" factor="1e-3"/>
+            </units>
+        </quantity>
+        <quantity dimension="m.s^-3" name="Jerk">
+            <si-unit instance-name="METER_PER_CUBIC_SECOND"/>
+            <units>
+                <unit instance-name="CENTIMETER_PER_CUBIC_SECOND" unit-name="cm.s^-3" factor="1e-2"/>
+                <unit instance-name="MILLIMETER_PER_CUBIC_SECOND" unit-name="mm.s^-3" factor="1e-3"/>
+            </units>
+        </quantity>
+        <quantity dimension="m.s^-2" name="Acceleration">
+            <si-unit instance-name="METER_PER_SQUARE_SECOND"/>
+            <units>
+                <unit instance-name="MILLIMETER_PER_SQUARE_SECOND" unit-name="mm.s^-2" factor="1e-3"/>
             </units>
             <constants>
-                <value name="DELTA_CELSIUS_4" unit-name="DELTA_CELSIUS" value="4"/>
+                <value name="EARTH_SEA_LEVEL" unit-name="METER_PER_SQUARE_SECOND" value="9.80665"/>
             </constants>
         </quantity>
-
-        <quantity dimension="" name="DimensionLess">
-            <si-unit instance-name="DIMENSION_LESS"/>
-            <units>
-                <unit instance-name="PERCENT_DIMENSION_LESS" unit-name="%" factor="1e-2"/>
-                <unit instance-name="PERMILLE_DIMENSION_LESS" unit-name="‰" factor="1e-3"/>
-            </units>
-            <constants>
-                <value name="ONE" unit-name="DIMENSION_LESS" value="1"/>
-            </constants>
-        </quantity>
-
-        <quantity dimension="s^-2" name="DimensionLessAcceleration">
-            <si-unit instance-name="DIMENSION_LESS_PER_SECOND_SQUARE"/>
-            <units>
-                <unit instance-name="PERCENT_DIMENSION_LESS_PER_SECOND_SQUARE" unit-name="%.s^-2" factor="1e-2"/>
-                <unit instance-name="PERMILLE_DIMENSION_LESS_PER_SECOND_SQUARE" unit-name="‰.s^-2" factor="1e-3"/>
-            </units>
-        </quantity>
-
         <quantity dimension="m.s^-1" name="Speed">
             <si-unit instance-name="METER_PER_SECOND"/>
             <units>
@@ -189,36 +186,46 @@
                 <unit instance-name="NANOMETER_PER_HOUR" unit-name="nm.h^-1" factor="1e-9/3600"/>
             </units>
         </quantity>
-
-        <quantity dimension="m^2.s^-2" name="SquaredSpeed">
-            <si-unit instance-name="SQUARE_METER_PER_SQUARE_SECOND"/>
-        </quantity>
-
-        <quantity dimension="m.s^-2" name="Acceleration">
-            <si-unit instance-name="METER_PER_SQUARE_SECOND"/>
+        <quantity dimension="m" name="Length">
+            <si-unit instance-name="METER"/>
             <units>
-                <unit instance-name="MILLIMETER_PER_SQUARE_SECOND" unit-name="mm.s^-2" factor="1e-3"/>
+                <unit instance-name="ANGSTROM" unit-name="Å" factor="1e-10"/>
+                <unit instance-name="NANOMETER" unit-name="nm" factor="1e-9"/>
+                <unit instance-name="MICROMETER" unit-name="µm" factor="1e-6"/>
+                <unit instance-name="MILLIMETER" unit-name="mm" factor="1e-3"/>
+                <unit instance-name="CENTIMETER" unit-name="cm" factor="1e-2"/>
+                <unit instance-name="DECIMETER" unit-name="dm" factor="1e-1"/>
+                <unit instance-name="KILOMETER" unit-name="km" factor="1e3"/>
+                <unit instance-name="LIGHT_YEAR" unit-name="ly" factor="9460730472580800.0"/>
+                <unit instance-name="YARD" unit-name="yd" factor="0.9144"/>
+                <unit instance-name="FEET" unit-name="ft" factor="0.3048"/>
+                <unit instance-name="INCH" unit-name="in" factor="0.0254"/>
             </units>
             <constants>
-                <value name="EARTH_SEA_LEVEL" unit-name="METER_PER_SQUARE_SECOND" value="9.80665"/>
+                <value name="PLANCK_LENGTH" unit-name="METER" value="1.61619997e-35"/>
             </constants>
         </quantity>
-
-        <quantity dimension="kg.m^2.s^-3.A^-1" name="Voltage">
-            <si-unit instance-name="VOLT" unit-name="V"/>
+        <quantity dimension="m^2.s^-1" name="Diffusivity" quantity-name="DiffusivityQuantity">
+            <si-unit instance-name="SQUARE_METER_PER_SECOND"/>
             <units>
-                <unit instance-name="MILLIVOLT" unit-name="mV" factor="1e-3"/>
+                <unit instance-name="SQUARE_CENTIMETER_PER_SECOND" unit-name="cm^2.s^-1" factor="1e-4"/>
             </units>
         </quantity>
-
-        <quantity dimension="m.s^-3" name="Jerk">
-            <si-unit instance-name="METER_PER_CUBIC_SECOND"/>
+        <quantity dimension="m^2" name="Surface">
+            <si-unit instance-name="SQUARE_METER"/>
             <units>
-                <unit instance-name="CENTIMETER_PER_CUBIC_SECOND" unit-name="cm.s^-3" factor="1e-2"/>
-                <unit instance-name="MILLIMETER_PER_CUBIC_SECOND" unit-name="mm.s^-3" factor="1e-3"/>
+                <unit instance-name="SQUARE_MILLIMETER" unit-name="mm^2" factor="1e-6"/>
             </units>
         </quantity>
-
+        <quantity dimension="m^3.s^-2" name="FlowAcceleration" quantity-name="VolumetricFlowAccelerationQuantity">
+            <si-unit instance-name="CUBIC_METER_PER_SQUARE_SECOND"/>
+            <units>
+                <unit instance-name="LITER_PER_SQUARE_SECOND" unit-name="l.s^-2" factor="1e-3"/>
+                <unit instance-name="MILLILITER_PER_SQUARE_SECOND" unit-name="ml.s^-2" factor="1e-6"/>
+                <unit instance-name="MICROLITER_PER_SQUARE_SECOND" unit-name="µl.s^-2" factor="1e-9"/>
+                <unit instance-name="NANOLITER_PER_SQUARE_SECOND" unit-name="nl.s^-2" factor="1e-12"/>
+            </units>
+        </quantity>
         <quantity dimension="m^3.s^-1" name="FlowRate" quantity-name="VolumetricFlowRateQuantity">
             <si-unit instance-name="CUBIC_METER_PER_SECOND"/>
             <units>
@@ -232,63 +239,30 @@
                 <unit instance-name="NANOLITER_PER_SECOND" unit-name="nl.s^-1" factor="1e-12"/>
             </units>
         </quantity>
-
-        <quantity dimension="m^2.s^-1" name="Diffusivity" quantity-name="DiffusivityQuantity">
-            <si-unit instance-name="SQUARE_METER_PER_SECOND"/>
+        <quantity dimension="m^3" name="Volume">
+            <si-unit instance-name="CUBIC_METER"/>
             <units>
-                <unit instance-name="SQUARE_CENTIMETER_PER_SECOND" unit-name="cm^2.s^-1" factor="1e-4"/>
+                <unit instance-name="LITER" unit-name="l" factor="1e-3"/>
+                <unit instance-name="MILLILITER" unit-name="ml" factor="1e-6"/>
+                <unit instance-name="MICROLITER" unit-name="µl" factor="1e-9"/>
+                <unit instance-name="NANOLITER" unit-name="nl" factor="1e-12"/>
             </units>
         </quantity>
-
-        <quantity dimension="m^3.s^-2" name="FlowAcceleration" quantity-name="VolumetricFlowAccelerationQuantity">
-            <si-unit instance-name="CUBIC_METER_PER_SQUARE_SECOND"/>
-            <units>
-                <unit instance-name="LITER_PER_SQUARE_SECOND" unit-name="l.s^-2" factor="1e-3"/>
-                <unit instance-name="MILLILITER_PER_SQUARE_SECOND" unit-name="ml.s^-2" factor="1e-6"/>
-                <unit instance-name="MICROLITER_PER_SQUARE_SECOND" unit-name="µl.s^-2" factor="1e-9"/>
-                <unit instance-name="NANOLITER_PER_SQUARE_SECOND" unit-name="nl.s^-2" factor="1e-12"/>
-            </units>
+        <quantity dimension="m^4" name="QuarticMeter">
+            <si-unit instance-name="QUARTIC_METER"/>
+        </quantity>
+        <quantity dimension="m^2.s^-2" name="SquaredSpeed">
+            <si-unit instance-name="SQUARE_METER_PER_SQUARE_SECOND"/>
         </quantity>
 
-        <quantity dimension="dK.s^-1" name="TemperatureSpeed">
-            <si-unit instance-name="KELVIN_PER_SECOND"/>
+
+        <quantity dimension="s^-2" name="DimensionLessAcceleration">
+            <si-unit instance-name="DIMENSION_LESS_PER_SECOND_SQUARE"/>
             <units>
-                <unit instance-name="FAHRENHEIT_PER_SECOND" unit-name="°F.s^-1" factor="5/9."/>
-                <unit instance-name="CELSIUS_PER_SECOND" unit-name="°C.s^-1" factor="1"/>
-                <unit instance-name="CELSIUS_PER_MINUTE" unit-name="°C.min^-1" factor="1./60"/>
+                <unit instance-name="PERCENT_DIMENSION_LESS_PER_SECOND_SQUARE" unit-name="%.s^-2" factor="1e-2"/>
+                <unit instance-name="PERMILLE_DIMENSION_LESS_PER_SECOND_SQUARE" unit-name="‰.s^-2" factor="1e-3"/>
             </units>
         </quantity>
-
-        <quantity dimension="kg.m.s^-2" name="Force">
-            <si-unit instance-name="NEWTON" unit-name="N"/>
-            <units>
-                <unit instance-name="KILONEWTON" unit-name="kN" factor="1e3"/>
-                <unit instance-name="MILLINEWTON" unit-name="mN" factor="1e-3"/>
-            </units>
-        </quantity>
-
-        <quantity dimension="kg.m^-1.s^-2" name="Pressure">
-            <si-unit instance-name="PASCAL" unit-name="Pa"/>
-            <units>
-                <unit instance-name="BAR" unit-name="bar" factor="1e5"/>
-                <unit instance-name="MILLIBAR" unit-name="mbar" factor="1e2"/>
-                <unit instance-name="ATMOSPHERE" unit-name="atm" factor="101325"/>
-                <unit instance-name="PSI" unit-name="psi" factor="6894.8"/>
-                <unit instance-name="TORR" unit-name="Torr" factor="133.3224"/>
-                <unit instance-name="HECTOPASCAL" unit-name="hPa" factor="1e2"/>
-            </units>
-        </quantity>
-
-        <quantity dimension="kg.m^-1.s^-1" name="Viscosity" quantity-name="DynamicViscosityQuantity">
-            <si-unit instance-name="PASCAL_SECOND" unit-name="Pa.s"/>
-            <units>
-                <unit instance-name="MILLIPASCAL_SECOND" unit-name="mPa.s" factor="1e-3"/>
-                <unit instance-name="CENTIPASCAL_SECOND" unit-name="cPa.s" factor="1e-2"/>
-                <unit instance-name="POISE" unit-name="P" factor="0.1"/>
-                <unit instance-name="CENTI_POISE" unit-name="cP" factor="1e-3"/>
-            </units>
-        </quantity>
-
         <quantity dimension="s^-1" name="Frequency">
             <si-unit instance-name="HERTZ" unit-name="Hz"/>
             <units>
@@ -387,93 +361,79 @@
 
             </constants>
         </quantity>
-
         <quantity dimension="s^-1" name="ShearRate">
             <si-unit instance-name="SHEAR_RATE"/>
         </quantity>
-
-        <quantity dimension="m^3" name="Volume">
-            <si-unit instance-name="CUBIC_METER"/>
+        <quantity dimension="s" name="Time">
+            <si-unit instance-name="SECOND"/>
             <units>
-                <unit instance-name="LITER" unit-name="l" factor="1e-3"/>
-                <unit instance-name="MILLILITER" unit-name="ml" factor="1e-6"/>
-                <unit instance-name="MICROLITER" unit-name="µl" factor="1e-9"/>
-                <unit instance-name="NANOLITER" unit-name="nl" factor="1e-12"/>
+                <unit instance-name="MINUTE" unit-name="min" factor="60"/>
+                <unit instance-name="HOUR" unit-name="h" factor="3600"/>
+                <unit instance-name="DAY" unit-name="d" factor="86400"/>
+                <unit instance-name="MILLISECOND" unit-name="ms" factor="1e-3"/>
+                <unit instance-name="MICROSECOND" unit-name="µs" factor="1e-6"/>
+                <unit instance-name="NANOSECOND" unit-name="ns" factor="1e-9"/>
             </units>
         </quantity>
 
-        <quantity dimension="m^2" name="Surface">
-            <si-unit instance-name="SQUARE_METER"/>
+        <quantity dimension="A" name="ElectricCurrent">
+            <si-unit instance-name="AMPERE"/>
             <units>
-                <unit instance-name="SQUARE_MILLIMETER" unit-name="mm^2" factor="1e-6"/>
+                <unit instance-name="MILLIAMPERE" unit-name="mA" factor="1e-3"/>
             </units>
         </quantity>
 
-        <quantity dimension="kg.m^-2.s^-2" name="PressureGradient">
-            <si-unit instance-name="PASCAL_PER_METER" unit-name="Pa.m^-1"/>
-        </quantity>
-
-        <quantity dimension="m^-4" name="ReciprocalQuarticMeter">
-            <si-unit instance-name="RECIPROCAL_QUARTIC_METER"/>
-        </quantity>
-
-        <quantity dimension="m^4" name="QuarticMeter">
-            <si-unit instance-name="QUARTIC_METER"/>
-        </quantity>
-
-        <quantity dimension="kg.m^2.s^-2" name="Energy">
-            <si-unit instance-name="JOULE" unit-name="J"/>
+        <quantity dimension="K" name="Temperature" standard="false">
+            <si-unit instance-name="KELVIN"/>
             <units>
-                <unit instance-name="NEWTON_METER" unit-name="Nm" factor="1"/>
-                <unit instance-name="NEWTON_MILLIMETER" unit-name="Nmm" factor="1e-3"/>
+                <unit instance-name="CELSIUS" unit-name="°C" factor="1" offset="273.15"/>
+                <unit instance-name="FAHRENHEIT" unit-name="°F" factor="5/9." offset="459.67"/>
+                <unit instance-name="RANKINE" unit-name="°R" factor="5/9."/>
+            </units>
+            <constants>
+                <value name="ABSOLUTE_ZERO" unit-name="KELVIN" value="0"/>
+                <value name="CELSIUS_0" unit-name="CELSIUS" value="0"/>
+                <value name="CELSIUS_4" unit-name="CELSIUS" value="4"/>
+                <value name="CELSIUS_25" unit-name="CELSIUS" value="25"/>
+                <value name="CELSIUS_30" unit-name="CELSIUS" value="30"/>
+                <value name="CELSIUS_80" unit-name="CELSIUS" value="80"/>
+                <value name="CELSIUS_100" unit-name="CELSIUS" value="100"/>
+                <value name="FAHRENHEIT_32" unit-name="FAHRENHEIT" value="32"/>
+                <value name="FAHRENHEIT_212" unit-name="FAHRENHEIT" value="212"/>
+                <value name="FAHRENHEIT_451" unit-name="FAHRENHEIT" value="451"/>
+            </constants>
+        </quantity>
+
+
+        <quantity dimension="dK" name="DeltaTemperature">
+            <si-unit instance-name="DELTA_KELVIN"/>
+            <units>
+                <unit instance-name="DELTA_CELSIUS" unit-name="d°C" factor="1"/>
+                <unit instance-name="DELTA_FAHRENHEIT" unit-name="d°F" factor="5./9."/>
+                <unit instance-name="DELTA_RANKINE" unit-name="d°R" factor="5./9."/>
+            </units>
+            <constants>
+                <value name="DELTA_CELSIUS_4" unit-name="DELTA_CELSIUS" value="4"/>
+            </constants>
+        </quantity>
+        <quantity dimension="dK.s^-1" name="TemperatureSpeed">
+            <si-unit instance-name="KELVIN_PER_SECOND"/>
+            <units>
+                <unit instance-name="FAHRENHEIT_PER_SECOND" unit-name="°F.s^-1" factor="5/9."/>
+                <unit instance-name="CELSIUS_PER_SECOND" unit-name="°C.s^-1" factor="1"/>
+                <unit instance-name="CELSIUS_PER_MINUTE" unit-name="°C.min^-1" factor="1./60"/>
             </units>
         </quantity>
 
-        <quantity dimension="kg.m^2.s^-3" name="Power">
-            <si-unit instance-name="WATT" unit-name="W"/>
-        </quantity>
-
-        <quantity dimension="kg.m^2.s^-2.A^-1" name="MagneticFlux">
-            <si-unit instance-name="WEBER" unit-name="Wb"/>
+        <quantity dimension="" name="DimensionLess">
+            <si-unit instance-name="DIMENSION_LESS"/>
             <units>
-                <unit instance-name="VOLTS_PER_HERTZ" unit-name="V.Hz^-1" factor="1"/>
+                <unit instance-name="PERCENT_DIMENSION_LESS" unit-name="%" factor="1e-2"/>
+                <unit instance-name="PERMILLE_DIMENSION_LESS" unit-name="‰" factor="1e-3"/>
             </units>
-        </quantity>
-
-        <quantity dimension="m^-3" name="ReciprocalVolume">
-            <si-unit instance-name="RECIPROCAL_CUBIC_METER"/>
-        </quantity>
-
-        <quantity dimension="kg.m^-4.s^-1" name="HydraulicResistivity">
-            <si-unit instance-name="PASCAL_SECOND_PER_CUBIC_METER" unit-name="Pa.s.m^-3"/>
-            <units>
-                <unit instance-name="BAR_MINUTE_PER_MICROLITER" unit-name="bar.min.µl^-1" factor="6e15"/>
-                <unit instance-name="MILLIBAR_MINUTE_PER_MICROLITER" unit-name="mbar.min.µl^-1" factor="6e12"/>
-            </units>
-        </quantity>
-
-        <quantity dimension="rad" name="Angle">
-            <si-unit instance-name="RADIAN"/>
-            <units>
-                <unit instance-name="DEGREE" unit-name="°" factor="Math.PI/180"/>
-                <unit instance-name="GRADE" unit-name="gon" factor="Math.PI/200"/>
-            </units>
-        </quantity>
-
-        <quantity dimension="rad.s^-1" name="AngularVelocity" measurement-name="AngularSpeed">
-            <si-unit instance-name="RADIAN_PER_SECOND"/>
-            <units>
-                <unit instance-name="REVOLUTION_PER_MINUTE" unit-name="rpm" factor="2*Math.PI/60"/>
-                <unit instance-name="REVOLUTION_PER_SECOND" unit-name="rps" factor="2*Math.PI"/>
-                <unit instance-name="DEGREE_PER_SECOND" unit-name="°.s^-1" factor="Math.PI/180"/>
-            </units>
-        </quantity>
-
-        <quantity dimension="rad.s^-2" name="AngularAcceleration">
-            <si-unit instance-name="RADIAN_PER_SQUARE_SECOND"/>
-            <units>
-                <unit instance-name="DEGREE_PER_SQUARE_SECOND" unit-name="°.s^-2" factor="Math.PI/180"/>
-            </units>
+            <constants>
+                <value name="ONE" unit-name="DIMENSION_LESS" value="1"/>
+            </constants>
         </quantity>
 
         <quantity dimension="rad.s^-3" name="AngularJerk">
@@ -482,13 +442,28 @@
                 <unit instance-name="DEGREE_PER_CUBIC_SECOND" unit-name="°.s^-3" factor="Math.PI/180"/>
             </units>
         </quantity>
-
-        <quantity dimension="kg.m^2.s^-2.A^-2" name="Inductance">
-            <si-unit instance-name="HENRY" unit-name="H"/>
+        <quantity dimension="rad.s^-2" name="AngularAcceleration">
+            <si-unit instance-name="RADIAN_PER_SQUARE_SECOND"/>
             <units>
-                <unit instance-name="MILLIHENRY" unit-name="mH" factor="1e-3"/>
+                <unit instance-name="DEGREE_PER_SQUARE_SECOND" unit-name="°.s^-2" factor="Math.PI/180"/>
             </units>
         </quantity>
+        <quantity dimension="rad.s^-1" name="AngularVelocity" measurement-name="AngularSpeed">
+            <si-unit instance-name="RADIAN_PER_SECOND"/>
+            <units>
+                <unit instance-name="REVOLUTION_PER_MINUTE" unit-name="rpm" factor="2*Math.PI/60"/>
+                <unit instance-name="REVOLUTION_PER_SECOND" unit-name="rps" factor="2*Math.PI"/>
+                <unit instance-name="DEGREE_PER_SECOND" unit-name="°.s^-1" factor="Math.PI/180"/>
+            </units>
+        </quantity>
+        <quantity dimension="rad" name="Angle">
+            <si-unit instance-name="RADIAN"/>
+            <units>
+                <unit instance-name="DEGREE" unit-name="°" factor="Math.PI/180"/>
+                <unit instance-name="GRADE" unit-name="gon" factor="Math.PI/200"/>
+            </units>
+        </quantity>
+
     </quantities>
 
     <operations>
@@ -570,6 +545,7 @@
         <product quantity1="ReciprocalVolume" quantity2="FlowRate" result="ShearRate"/>
         <product quantity1="Volume" quantity2="ShearRate" result="FlowRate"/>
 
+        <product quantity1="Force" quantity2="Time" result="Impulse"/>
 
     </operations>
 

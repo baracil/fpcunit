@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum BasedUnitCode {
-  LENGTH("m",0),
-  MASS("kg",1),
+  MASS("kg",0),
+  LENGTH("m",1),
   TIME("s",2),
   AMPERE("A",3),
   TEMPERATURE("K",4),
