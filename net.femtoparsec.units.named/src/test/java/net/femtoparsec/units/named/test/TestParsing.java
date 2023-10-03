@@ -36,7 +36,7 @@ public class TestParsing extends UnitTest {
   @ParameterizedTest
   @MethodSource("samples")
   public void shouldParseCorrectly(String valueOf, Length expected) throws Exception {
-    final Length length = Length.parse(valueOf).inAdaptedUnit();
+    final Length length = Length.parse(valueOf);
 
     Assertions.assertEquals(length.getValue(), expected.getValueInUnit(length.getUnit()), 1e-6);
   }

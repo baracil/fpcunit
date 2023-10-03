@@ -10,11 +10,11 @@ import java.util.function.Predicate;
  */
 public interface UnitSystem {
 
-  Predicate<Unit<?, ?, ?>> systemPredicate();
+  Predicate<Unit<?>> systemPredicate();
 
-  Set<Unit<?, ?, ?>> getUnits();
+  Set<Unit<?>> getUnits();
 
-  <U extends Unit<?, ?, ?>> Set<U> getUnits(Class<U> unitType);
+  <U extends Unit<?>> Set<U> getUnits(Class<U> unitType);
 
   static Builder builder() {
     return new SimpleUnitSystemBuilder();
@@ -23,7 +23,7 @@ public interface UnitSystem {
   interface Builder {
     UnitSystem build();
 
-    Builder addUnit(Unit<?, ?, ?> unit);
+    Builder addUnit(Unit<?> unit);
 
     Builder addSystem(UnitSystem system);
   }

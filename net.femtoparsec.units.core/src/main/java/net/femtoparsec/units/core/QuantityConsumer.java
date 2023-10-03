@@ -7,5 +7,5 @@ import net.femtoparsec.units.api.Quantity;
  */
 public interface QuantityConsumer {
 
-    void accept(Quantity<?,?,?> quantity);
+    void accept(Quantity quantity);
 }

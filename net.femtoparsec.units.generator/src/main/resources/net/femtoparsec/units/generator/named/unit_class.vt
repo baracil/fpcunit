@@ -11,7 +11,7 @@ import net.femtoparsec.units.core.UnitBase;
 import ${generationPath.basePackageName}.named.quantity.${quantity.quantityName};
 import ${generationPath.basePackageName}.named.measurement.${quantity.measurementName};
 
-public class ${quantity.unitName} extends UnitBase<${quantity.quantityName},${quantity.unitName},${quantity.measurementName}> {
+public class ${quantity.unitName} extends UnitBase<${quantity.quantityName}> {
 
     public static final ${quantity.quantityName} QUANTITY = ${quantity.quantityName}.INSTANCE;
 
@@ -25,7 +25,7 @@ public class ${quantity.unitName} extends UnitBase<${quantity.quantityName},${qu
     }
 #end
     public ${quantity.unitName}(String name) {
-        super(name, ${quantity.measurementName}::new);
+        super(name);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ${quantity.unitName} extends UnitBase<${quantity.quantityName},${qu
     }
 
     @Override
-    protected ${quantity.unitName} getThis() {
-        return this;
+    public ${quantity.measurementName} create(double value) {
+        return new ${quantity.measurementName}(value,this);
     }
 }

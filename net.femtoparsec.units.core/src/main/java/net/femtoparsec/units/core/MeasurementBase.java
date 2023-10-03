@@ -8,16 +8,16 @@ import net.femtoparsec.units.api.*;
 import java.io.ObjectStreamException;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * @author Bastien Aracil
  */
 @Getter
-public abstract class MeasurementBase<Q extends Quantity<Q, U, M>, U extends Unit<Q, U, M>, M extends Measurement<Q, U, M>> implements Measurement<Q, U, M>, Serializable {
+public abstract class MeasurementBase<Q extends Quantity, M extends MeasurementBase<Q,M>> implements Measurement<Q>, Serializable {
 
-  private final U unit;
+  private final Unit<Q> unit;
 
   private final double value;
 
@@ -26,13 +26,17 @@ public abstract class MeasurementBase<Q extends Quantity<Q, U, M>, U extends Uni
    */
   private final double valueInSI;
 
-  protected MeasurementBase(double value, @NonNull U unit) {
+  protected MeasurementBase(double value, @NonNull Unit<Q> unit) {
     this.unit = unit;
     this.value = value;
     this.valueInSI = unit.convertToSI(value);
   }
 
-  protected static String toString(double value, @NonNull Unit<?, ?, ?> unit) {
+  protected abstract M getThis();
+
+  protected abstract M createWith(double value, Unit<Q> unit);
+
+  protected static String toString(double value, @NonNull Unit<?> unit) {
     return value + (unit.getName().isEmpty() ? "" : " " + unit.getName());
   }
 
@@ -42,50 +46,32 @@ public abstract class MeasurementBase<Q extends Quantity<Q, U, M>, U extends Uni
   }
 
   @Override
-  public M convert(U newUnit) {
-    if (newUnit == this.unit) {
-      return this.getThis();
+  public M convert(Unit<Q> newUnit) {
+    if (newUnit.equals(this.unit)) {
+      return getThis();
     }
-    return newUnit.create(this.getValueInUnit(newUnit));
+    return createWith(this.getValueInUnit(newUnit),newUnit);
   }
 
+  public <NQ extends NamedQuantity<NM>, NM extends Measurement<NQ>> Optional<NM> tryAs(NQ quantity) {
+    if (this.getQuantity().hasSameDimension(quantity)) {
+      return Optional.ofNullable(quantity.createWithSI(getValueInSI()));
+    }
+    return Optional.empty();
+  }
+
+  public <NQ extends NamedQuantity<NM>, NM extends Measurement<NQ>> NM as(NQ quantity) {
+    return tryAs(quantity).orElseThrow(() -> new IncompatibleDimension(this.getDimension(), quantity.getDimension()));
+  }
+
+
   @Override
-  public M sameUnitAs(M reference) {
+  public M sameUnitAs(Measurement<Q> reference) {
     return convert(reference.getUnit());
   }
 
   @Override
-  public M inAdaptedUnit() {
-    return UnitUtils.adaptUnit(getThis());
-  }
-
-  @Override
-  public M inAdaptedUnit(U unitForZero) {
-    return UnitUtils.adaptUnit(getThis(), unitForZero);
-  }
-
-  @Override
-  public M inAdaptedUnit(U unitForZero, Predicate<? super U> unitSelector) {
-    return UnitUtils.adaptUnit(getThis(), unitForZero, unitSelector);
-  }
-
-  @Override
-  public M inAdaptedUnit(Predicate<? super U> unitSelector) {
-    return UnitUtils.adaptUnit(getThis(), unitSelector);
-  }
-
-  @Override
-  public M inAdaptedUnit(UnitSystem unitSystem) {
-    return UnitUtils.adaptUnit(getThis(), unitSystem);
-  }
-
-  @Override
-  public M inAdaptedUnit(U unitForZero, UnitSystem unitSystem) {
-    return UnitUtils.adaptUnit(getThis(), unitForZero, unitSystem);
-  }
-
-  @Override
-  public M convertToSI() {
+  public Measurement<Q> convertToSI() {
     return convert(this.unit.getReferenceSI());
   }
 
@@ -100,34 +86,32 @@ public abstract class MeasurementBase<Q extends Quantity<Q, U, M>, U extends Uni
   }
 
   @Override
-  public boolean isGreaterThan(M other) {
+  public boolean isGreaterThan(Measurement<Q> other) {
     return this.compareTo(other) > 0;
   }
 
   @Override
-  public boolean isGreaterOrEqualTo(M other) {
+  public boolean isGreaterOrEqualTo(Measurement<Q> other) {
     return this.compareTo(other) >= 0;
   }
 
   @Override
-  public boolean isLowerThan(M other) {
-    return other.isGreaterThan(getThis());
+  public boolean isLowerThan(Measurement<Q> other) {
+    return other.isGreaterThan(this);
   }
 
   @Override
-  public boolean isLowerOrEqualTo(M other) {
-    return other.isGreaterOrEqualTo(getThis());
+  public boolean isLowerOrEqualTo(Measurement<Q> other) {
+    return other.isGreaterOrEqualTo(this);
   }
 
   @Override
-  public double getValueInUnit(U otherUnit) {
-    if (otherUnit == this.unit.getReferenceSI()) {
+  public double getValueInUnit(Unit<Q> otherUnit) {
+    if (otherUnit.isSI()) {
       return this.valueInSI;
     }
     return this.unit.convertTo(this.value, otherUnit);
   }
-
-  protected abstract M getThis();
 
   @Override
   public String toString() {
@@ -135,33 +119,33 @@ public abstract class MeasurementBase<Q extends Quantity<Q, U, M>, U extends Uni
   }
 
   @Override
-  public M max(double value) {
+  public Measurement<Q> max(double value) {
     if (this.value >= value) {
-      return getThis();
+      return this;
     }
     return unit.create(value);
   }
 
   @Override
-  public M max(M other) {
+  public Measurement<Q> max(Measurement<Q> other) {
     if (this.valueInSI > other.getValueInSI()) {
-      return getThis();
+      return this;
     }
     return other;
   }
 
   @Override
-  public M min(double value) {
+  public Measurement<Q> min(double value) {
     if (this.value <= value) {
-      return getThis();
+      return this;
     }
     return unit.create(value);
   }
 
   @Override
-  public M min(M other) {
+  public Measurement<Q> min(Measurement<Q> other) {
     if (this.valueInSI <= other.getValueInSI()) {
-      return getThis();
+      return this;
     }
     return other;
   }
@@ -196,7 +180,7 @@ public abstract class MeasurementBase<Q extends Quantity<Q, U, M>, U extends Uni
     if (this == o)
       return true;
 
-    if (o instanceof MeasurementBase<?, ?, ?> that) {
+    if (o instanceof MeasurementBase<?,?> that) {
       final var thisQuantity = this.unit.getQuantity();
       final var thatQuantity = that.unit.getQuantity();
 
@@ -206,12 +190,12 @@ public abstract class MeasurementBase<Q extends Quantity<Q, U, M>, U extends Uni
   }
 
   @Override
-  public int compareTo(M o) {
+  public int compareTo(Measurement<Q> o) {
     return Double.compare(this.getValueInSI(), o.getValueInSI());
   }
 
   @Override
-  public boolean equals(M other, double error) {
+  public boolean equals(Measurement<Q> other, double error) {
     return Math.abs(this.value - other.getValueInUnit(this.unit)) <= error;
   }
 
@@ -231,7 +215,7 @@ public abstract class MeasurementBase<Q extends Quantity<Q, U, M>, U extends Uni
   }
 
   @Override
-  public M round(U unit, int nbDecimals) {
+  public Measurement<Q> round(Unit<Q> unit, int nbDecimals) {
     double value = this.getValueInUnit(unit);
     for (int i = 0; i < nbDecimals; i++) {
       value *= 10;

@@ -1,7 +1,7 @@
 package ${generationPath.basePackageName}.named.measurement;
-#* @vtlvariable name="quantity" type="bean.generator.units.physics.net.femtoparsec.Quantity" *#
-#* @vtlvariable name="generationPath" type="generator.units.physics.net.femtoparsec.GenerationPath" *#
-#* @vtlvariable name="StringUtils" type="generator.units.physics.net.femtoparsec.StringUtils" *#
+#* @vtlvariable name="quantity" type="net.femtoparsec.units.generator.bean.Quantity" *#
+#* @vtlvariable name="generationPath" type="net.femtoparsec.units.generator.GenerationPath" *#
+#* @vtlvariable name="StringUtils" type="net.femtoparsec.units.generator.StringUtils" *#
 
 /**
 !! Automatically generated class. Any direct modifications will be lost during the next generation. To add Quantity/Unit/Measurement , constant or operations
@@ -9,6 +9,7 @@ package ${generationPath.basePackageName}.named.measurement;
 **/
 
 import lombok.NonNull;
+import net.femtoparsec.units.api.Unit;
 import ${generationPath.basePackageName}.named.Units;
 import ${generationPath.basePackageName}.named.Quantities;
 import net.femtoparsec.units.core.MeasurementOperations;
@@ -21,14 +22,14 @@ import net.femtoparsec.units.core.LinearMeasurementBase;
 import java.util.Optional;
 
 
-public class ${quantity.measurementName} extends LinearMeasurementBase<${quantity.quantityName},${quantity.unitName},${quantity.measurementName}> {
+public class ${quantity.measurementName} extends LinearMeasurementBase<${quantity.quantityName},${quantity.measurementName}> {
 #else
 import net.femtoparsec.units.core.MeasurementBase;
 
 import java.util.Optional;
 
 
-public class ${quantity.measurementName} extends MeasurementBase<${quantity.quantityName},${quantity.unitName},${quantity.measurementName}> {
+public class ${quantity.measurementName} extends MeasurementBase<${quantity.quantityName},${quantity.measurementName}> {
 #end
 
     @NonNull
@@ -43,18 +44,9 @@ public class ${quantity.measurementName} extends MeasurementBase<${quantity.quan
 
     @NonNull
     public static ${quantity.measurementName} parse(@NonNull String measurementAsString,@NonNull ${quantity.measurementName} defaultValue) {
-        return Quantities.${StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")}.parseMeasurement(measurementAsString, defaultValue);
+        return Quantities.${StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")}.safeParseMeasurement(measurementAsString).orElse(defaultValue);
     }
 
-    @Deprecated
-    public static ${quantity.measurementName} valueOf(String measurementAsString) {
-        return Quantities.${StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")}.parseMeasurement(measurementAsString);
-    }
-
-    @Deprecated
-    public static ${quantity.measurementName} valueOf(String measurementAsString, ${quantity.measurementName} defaultValue) {
-        return Quantities.${StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")}.parseMeasurement(measurementAsString, defaultValue);
-    }
 
     public static final ${quantity.unitName} SI = Units.${quantity.siUnit.instanceName};
     public static final ${quantity.unitName} ${quantity.siUnit.instanceName} = Units.${quantity.siUnit.instanceName};
@@ -77,7 +69,7 @@ public class ${quantity.measurementName} extends MeasurementBase<${quantity.quan
     public static final ${quantity.measurementName} ZERO = Units.${quantity.siUnit.instanceName}.create(0);
 #end
 
-    public ${quantity.measurementName}(double value, ${quantity.unitName} unit) {
+    public ${quantity.measurementName}(double value, Unit<${quantity.quantityName}> unit) {
         super(value,unit);
     }
 
@@ -86,6 +78,14 @@ public class ${quantity.measurementName} extends MeasurementBase<${quantity.quan
         return this;
     }
 
+    @Override
+    protected ${quantity.measurementName} createWith(double value, Unit<${quantity.quantityName}> unit) {
+        return new ${quantity.measurementName}(value,unit);
+    }
+
+
+
+
 #foreach ($operation in ${quantity.operations})
 #if (${operation.nonStandard})
 #if (${operation.methodName} == "Add")
@@ -93,7 +93,7 @@ public class ${quantity.measurementName} extends MeasurementBase<${quantity.quan
         final double thisValue = this.getValueInSI();
         final double otherValue = ${operation.other.measurementName.toLowerCase()}.getValueInSI();
         final double result = thisValue + otherValue;
-        return this.getUnit().getReferenceSI().create(result).convert(this.getUnit());
+        return createWith(this.getUnit().convertFromSI(result),this.getUnit());
     }
 
     public ${operation.result.measurementName} subtract(${operation.other.measurementName} ${operation.other.measurementName.toLowerCase()}) {
@@ -111,12 +111,12 @@ public class ${quantity.measurementName} extends MeasurementBase<${quantity.quan
 
 #if (${operation.monadic})
     public ${operation.result.measurementName} ${operation.methodName.toLowerCase()}() {
-        return MeasurementOperations.${operation.decapitalizedMethodName}(this, Units.${operation.result.siUnit.instanceName});
+        return MeasurementOperations.${operation.decapitalizedMethodName}(this, Units.${operation.result.siUnit.instanceName}, ${operation.result.measurementName}::new);
     }
 #else
 #set($var = $StringUtils.decapitalizeFirstLetter(${operation.other.measurementName}))
     public ${operation.result.measurementName} ${operation.methodName.toLowerCase()}(${operation.other.measurementName} $var) {
-        return MeasurementOperations.${operation.decapitalizedMethodName}(this, $var, Units.${operation.result.siUnit.instanceName});
+        return MeasurementOperations.${operation.decapitalizedMethodName}(this, $var, Units.${operation.result.siUnit.instanceName}, ${operation.result.measurementName}::new);
     }
 #end
 #end

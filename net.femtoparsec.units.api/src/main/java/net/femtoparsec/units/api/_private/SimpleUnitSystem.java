@@ -12,19 +12,19 @@ import java.util.stream.Collectors;
  */
 public class SimpleUnitSystem implements UnitSystem {
 
-  private final Set<Unit<?, ?, ?>> units;
+  private final Set<Unit<?>> units;
 
-  public SimpleUnitSystem(Set<Unit<?, ?, ?>> units) {
+  public SimpleUnitSystem(Set<Unit<?>> units) {
     this.units = Set.copyOf(units);
   }
 
   @Override
-  public Set<Unit<?, ?, ?>> getUnits() {
+  public Set<Unit<?>> getUnits() {
     return units;
   }
 
   @Override
-  public <U extends Unit<?, ?, ?>> Set<U> getUnits(Class<U> unitType) {
+  public <U extends Unit<?>> Set<U> getUnits(Class<U> unitType) {
     return this.units
         .stream()
         .filter(unitType::isInstance)
@@ -33,7 +33,7 @@ public class SimpleUnitSystem implements UnitSystem {
   }
 
   @Override
-  public Predicate<Unit<?, ?, ?>> systemPredicate() {
+  public Predicate<Unit<?>> systemPredicate() {
     return units::contains;
   }
 }

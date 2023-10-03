@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * List all units for a specific quantity
  * @author Bastien Aracil
  */
-public class QuantityUnits<Q extends Quantity<Q,U,M>, U extends Unit<Q,U,M>, M extends Measurement<Q,U,M>> {
+public class QuantityUnits<Q extends Quantity, U extends Unit<Q>> {
 
     @Getter
     private final U siUnit;
@@ -28,8 +28,18 @@ public class QuantityUnits<Q extends Quantity<Q,U,M>, U extends Unit<Q,U,M>, M e
 
     @Builder
     public QuantityUnits(@Singular List<U> units) {
-        this.siUnit = units.get(0).getReferenceSI();
+        if (units.isEmpty()) {
+            throw new IllegalArgumentException("No units provided");
+        }
+        final var quantity = units.get(0).getQuantity();
+
+        this.siUnit = units.stream()
+            .filter(Unit::isSI)
+            .findAny()
+            .orElseThrow(() -> new IllegalArgumentException("No SI unit for quantity : "+quantity));
+
         this.unitByName = units.stream().collect(Collectors.toMap(Unit::getName, Function.identity()));
+
         this.unitsByFactor = units.stream().collect(Collectors.groupingBy(
             u -> 1./u.getFactorToSI(),
             TreeMap::new,

@@ -3,8 +3,8 @@ package net.femtoparsec.units.api;
 /**
  * @author Bastien Aracil
  */
-public interface MeasurementFactory<Q extends Quantity<Q,U,M>, U extends Unit<Q,U,M>, M extends Measurement<Q,U,M>> {
+public interface MeasurementFactory<Q extends Quantity, M extends Measurement<Q>> {
 
-    M create(double value, U unit);
+    M create(double value, Unit<Q> unit);
 
 }

@@ -18,15 +18,15 @@ import java.util.stream.Stream;
  */
 public class TestSerialization extends AbstractTestSerialization {
 
-  public static Stream<Quantity<?, ?, ?>> quantities() {
-    return Quantities.<Quantity<?, ?, ?>>apply(q -> q).stream();
+  public static Stream<Quantity> quantities() {
+    return Quantities.apply(q -> q).stream();
   }
 
-  public static Stream<Unit<?, ?, ?>> units() {
+  public static Stream<Unit<?>> units() {
     return Stream.of(Units.MILLISECOND, Units.ANGSTROM);
   }
 
-  public static Stream<Measurement<?, ?, ?>> measurements() {
+  public static Stream<Measurement<?>> measurements() {
     return Stream.of(
         Length.ZERO,
         Length.MICROMETER.create(12),
@@ -36,7 +36,7 @@ public class TestSerialization extends AbstractTestSerialization {
 
   @ParameterizedTest
   @MethodSource("measurements")
-  public void testMeasurementSerialization(Measurement<?,?,?> m) throws Exception {
+  public void testMeasurementSerialization(Measurement<?> m) throws Exception {
     final var ms = testSerialization(m);
     Assertions.assertEquals(ms.getUnit(), m.getUnit());
     final var other = m.getUnit().create(ms.getValue());
@@ -46,14 +46,14 @@ public class TestSerialization extends AbstractTestSerialization {
 
   @ParameterizedTest
   @MethodSource("units")
-  public void testUnitsSerialization(Unit<?,?,?> unit) throws Exception {
+  public void testUnitsSerialization(Unit<?> unit) throws Exception {
     final var us = testSerialization(unit);
     Assertions.assertSame(unit, us);
   }
 
   @ParameterizedTest
   @MethodSource("quantities")
-  public void testQuantitiesSerialization(Quantity<?,?,?> quantity) throws Exception {
+  public void testQuantitiesSerialization(Quantity quantity) throws Exception {
     final var sq = testSerialization(quantity);
     Assertions.assertSame(quantity, sq);
   }

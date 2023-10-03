@@ -16,12 +16,12 @@ import java.io.Serializable;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MeasurementSerializableForm implements Serializable {
 
-    public static MeasurementSerializableForm create(@NonNull Measurement<?,?,?> measurement) {
+    public static MeasurementSerializableForm create(@NonNull Measurement<?> measurement) {
         return new MeasurementSerializableForm(measurement.getUnit(), measurement.getValue());
     }
 
     @NonNull
-    private final Unit<?,?,?> unit;
+    private final Unit<?> unit;
 
     private final double value;
 

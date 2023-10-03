@@ -9,18 +9,22 @@ package ${generationPath.basePackageName}.named.quantity;
 **/
 
 import java.util.List;
+import java.util.Optional;
+
+import net.femtoparsec.units.core.MeasurementParser;
+import net.femtoparsec.units.api.NamedQuantity;
 import net.femtoparsec.units.core.QuantityBase;
 import net.femtoparsec.units.core.QuantityUnits;
 import ${generationPath.basePackageName}.named.Units;
 import ${generationPath.basePackageName}.named.unit.${quantity.unitName};
 import ${generationPath.basePackageName}.named.measurement.${quantity.measurementName};
 
-public final class ${quantity.quantityName} extends QuantityBase<${quantity.quantityName},${quantity.unitName},${quantity.measurementName}> {
+public final class ${quantity.quantityName} extends QuantityBase<${quantity.quantityName},${quantity.unitName}> implements NamedQuantity<${quantity.measurementName}> {
 
     public static final ${quantity.quantityName} INSTANCE = new ${quantity.quantityName}();
 
     @Override
-    protected QuantityUnits<${quantity.quantityName}, ${quantity.unitName}, ${quantity.measurementName}> getQuantityUnits() {
+    protected QuantityUnits<${quantity.quantityName}, ${quantity.unitName}> getQuantityUnits() {
         return Units.$StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")_UNITS;
     }
 
@@ -34,11 +38,12 @@ public final class ${quantity.quantityName} extends QuantityBase<${quantity.quan
     }
 
     @Override
-    public Class<${quantity.measurementName}> getMeasurementType() {
-        return ${quantity.measurementName}.class;
+    public ${quantity.measurementName} createWithSI(double siValue) {
+        return new ${quantity.measurementName}(siValue,Units.${quantity.siUnit.instanceName});
     }
 
-    @Override
+
+@Override
     protected List<${quantity.unitName}> getUnits() {
         return List.of(
 #foreach ($unit in ${quantity.units})
@@ -47,4 +52,20 @@ public final class ${quantity.quantityName} extends QuantityBase<${quantity.quan
             Units.${quantity.siUnit.instanceName}
         );
     }
+
+
+    @Override
+    public ${quantity.measurementName} parseMeasurement(String measurementAsString) {
+        return safeParseMeasurement(measurementAsString)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid measurement " + measurementAsString));
+    }
+
+    @Override
+    public Optional<${quantity.measurementName}> safeParseMeasurement(String measurementAsString) {
+        return MeasurementParser.parse(measurementAsString)
+              .flatMap(
+              p -> this.findUnit(p.unit())
+               .map(u -> new ${quantity.measurementName}(p.value(),u)));
+    }
+
 }

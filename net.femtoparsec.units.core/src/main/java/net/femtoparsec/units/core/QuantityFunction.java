@@ -7,5 +7,5 @@ import net.femtoparsec.units.api.Quantity;
  */
 public interface QuantityFunction<T> {
 
-  T apply(Quantity<?, ?, ?> quantity);
+  T apply(Quantity quantity);
 }

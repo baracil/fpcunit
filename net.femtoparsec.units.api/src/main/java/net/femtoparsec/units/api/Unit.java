@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * @author Bastien Aracil
  */
-public interface Unit<Q extends Quantity<Q,U,M>, U extends Unit<Q,U,M>, M extends Measurement<Q,U,M>> extends Dimensioned, Serializable {
+public interface Unit<Q extends Quantity> extends Dimensioned, Serializable {
 
     /**
      * @return true if this unit is an S.I. unit
@@ -16,7 +16,7 @@ public interface Unit<Q extends Quantity<Q,U,M>, U extends Unit<Q,U,M>, M extend
     /**
      * @return the S.I. unit for this unit (if this is an S.I. unit, this method returns this)
      */
-    U getReferenceSI();
+    Unit<Q> getReferenceSI();
 
     double getFactorToSI();
 
@@ -43,7 +43,7 @@ public interface Unit<Q extends Quantity<Q,U,M>, U extends Unit<Q,U,M>, M extend
      * @param unit the new unit for the value
      * @return the value in the new units
      */
-    double convertTo(double value, U unit);
+    double convertTo(double value, Unit<Q> unit);
 
     /**
      * Check if this unit is compatible with another unit (for instance <code>m</code> and <code>cm</code>
@@ -52,7 +52,7 @@ public interface Unit<Q extends Quantity<Q,U,M>, U extends Unit<Q,U,M>, M extend
      * @param other the other unit to check against
      * @return true if this unit is compatible with the other unit, false otherwise
      */
-    boolean isCompatible(Unit<?,?,?> other);
+    boolean isCompatible(Unit<?> other);
 
     /**
      * @return the physical quantity this unit applies to
@@ -68,16 +68,14 @@ public interface Unit<Q extends Quantity<Q,U,M>, U extends Unit<Q,U,M>, M extend
      * @param quantity a physical quantity
      * @return true if this unit applies to the given physical quantity
      */
-    boolean appliesTo(Quantity<?,?,?> quantity);
+    boolean appliesTo(Quantity quantity);
 
     /**
      * Create a measurement with the given value
      * @param value the value of the measurement in this unit
      * @return a measurement with the given value in this unit
      */
-    M create(double value);
-
-    MeasurementFactory<Q, U, M> getMeasurementFactory();
+    Measurement<Q> create(double value);
 
     String getPrettyName();
 }

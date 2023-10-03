@@ -15,7 +15,7 @@ import java.io.Serializable;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuantitySerializableForm implements Serializable  {
 
-    public static QuantitySerializableForm create(@NonNull Quantity<?,?,?> quantity) {
+    public static QuantitySerializableForm create(@NonNull Quantity quantity) {
         return new QuantitySerializableForm(quantity.getClass());
     }
 

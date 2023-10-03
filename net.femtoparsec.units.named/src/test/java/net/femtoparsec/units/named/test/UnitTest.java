@@ -1,6 +1,6 @@
 package net.femtoparsec.units.named.test;
 
-import net.femtoparsec.units.core.UnitOperationsChecker;
+import net.femtoparsec.units.core.QuantityOperationsChecker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 
@@ -12,6 +12,6 @@ public abstract class UnitTest {
 
     @BeforeEach
     public void setup() {
-        UnitOperationsChecker.USER_CHECK_ENABLED = true;
+        QuantityOperationsChecker.USER_CHECK_ENABLED = true;
     }
 }

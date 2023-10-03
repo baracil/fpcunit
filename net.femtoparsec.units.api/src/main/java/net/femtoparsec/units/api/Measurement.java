@@ -2,21 +2,19 @@ package net.femtoparsec.units.api;
 
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
  * @author Bastien Aracil
  */
-public interface Measurement<
-    Q extends Quantity<Q,U,M>,
-    U extends Unit<Q,U,M>,
-    M extends Measurement<Q,U,M>> extends Comparable<M>, Dimensioned, Serializable {
+public interface Measurement<Q extends Quantity> extends Comparable<Measurement<Q>>, Dimensioned, Serializable {
 
     /**
      * @return the quantity this is measuring
      */
-    default Q getQuantity() {
+    default Quantity getQuantity() {
         return getUnit().getQuantity();
     }
 
@@ -24,7 +22,7 @@ public interface Measurement<
     /**
      * @return the unit this measurement is expressed in
      */
-    U getUnit();
+    Unit<Q> getUnit();
 
     /**
      * @return the value in the unit of this measurement
@@ -36,33 +34,35 @@ public interface Measurement<
      */
     double getValueInSI();
 
+    <NQ extends NamedQuantity<M>, M extends Measurement<NQ>> Optional<M> tryAs(NQ quantity);
+
     /**
      * @param otherUnit a unit
      * @return the value of this measurement in the provided unit
      */
-    double getValueInUnit(U otherUnit);
+    double getValueInUnit(Unit<Q> otherUnit);
 
-    default double toDouble(U unit) {
+    default double toDouble(Unit<Q> unit) {
         return getValueInUnit(unit);
     }
 
-    default float toFloat(U unit) {
+    default float toFloat(Unit<Q> unit) {
         return (float)getValueInUnit(unit);
     }
 
-    default long toLong(U unit) {
+    default long toLong(Unit<Q> unit) {
         return (long)getValueInUnit(unit);
     }
 
-    default long toRoundedLong(U unit) {
+    default long toRoundedLong(Unit<Q> unit) {
         return Math.round(getValueInUnit(unit));
     }
 
-    default int toInt(U unit) {
+    default int toInt(Unit<Q> unit) {
         return (int)getValueInUnit(unit);
     }
 
-    default int toRoundedInt(U unit) {
+    default int toRoundedInt(Unit<Q> unit) {
         return Math.round(toFloat(unit));
     }
 
@@ -73,23 +73,11 @@ public interface Measurement<
      * @param newUnit the new unit to use for the new <code>Measurement</code>
      * @return the new <code>Measurement</code> in the given unit
      */
-    M convert(U newUnit);
+    Measurement<Q> convert(Unit<Q> newUnit);
 
-    default M sameUnitAs(M reference) {
+    default Measurement<Q> sameUnitAs(Measurement<Q> reference) {
         return convert(reference.getUnit());
     }
-
-    M inAdaptedUnit();
-
-    M inAdaptedUnit(U unitForZero);
-
-    M inAdaptedUnit(Predicate<? super U> unitSelector);
-
-    M inAdaptedUnit(UnitSystem unitSystem);
-
-    M inAdaptedUnit(U unitForZero, Predicate<? super U> unitSelector);
-
-    M inAdaptedUnit(U unitForZero, UnitSystem unitSystem);
 
     /**
      * Create a new <code>Measurement</code> representing the same value than this one but
@@ -97,48 +85,43 @@ public interface Measurement<
      *
      * @return the new <code>Measurement</code> in S.I. unit
      */
-    M convertToSI();
+    Measurement<Q> convertToSI();
 
-    default M ceil(U unit) {
+    default Measurement<Q> ceil(Unit<Q> unit) {
         double value = Math.ceil(this.getValueInUnit(unit));
         return unit.create(value);
     }
 
-    default M floor(U unit) {
+    default Measurement<Q> floor(Unit<Q> unit) {
         double value = Math.floor(this.getValueInUnit(unit));
         return unit.create(value);
     }
 
-    M round(U unit, int nbDecimals);
+    Measurement<Q> round(Unit<Q> unit, int nbDecimals);
 
-//    default M round(U unit, int nbDecimals) {
-//        double value = Math.floor(this.getValueInUnit(unit));
-//        return unit.measurement(MeasurementUtils.round(value,nbDecimals));
-//    }
-
-    default M round(U unit) {
+    default Measurement<Q> round(Unit<Q> unit) {
         return round(unit, 0);
     }
 
-    M max(double value);
+    Measurement<Q> max(double value);
 
-    M max(M other);
+    Measurement<Q> max(Measurement<Q> other);
 
-    M min(double value);
+    Measurement<Q> min(double value);
 
-    M min(M other);
+    Measurement<Q> min(Measurement<Q> other);
 
     boolean isNaN();
 
     boolean isFinite();
 
-    boolean isGreaterThan(M other);
+    boolean isGreaterThan(Measurement<Q> other);
 
-    boolean isGreaterOrEqualTo(M other);
+    boolean isGreaterOrEqualTo(Measurement<Q> other);
 
-    boolean isLowerThan(M other);
+    boolean isLowerThan(Measurement<Q> other);
 
-    boolean isLowerOrEqualTo(M other);
+    boolean isLowerOrEqualTo(Measurement<Q> other);
 
     default String toPrettyString() {
         return toPrettyString(d -> String.format("%e",d));
@@ -160,7 +143,7 @@ public interface Measurement<
 
     String encode();
 
-    boolean equals(M other, double error);
+    boolean equals(Measurement<Q> other, double error);
 
 
     default String toText() {

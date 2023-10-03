@@ -30,7 +30,7 @@ public final class Units {
 
 #foreach ($quantity in ${quantities})
 
-       public static final QuantityUnits<${quantity.quantityName}, ${quantity.unitName}, ${quantity.measurementName}> $StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")_UNITS = QuantityUnits.<${quantity.quantityName}, ${quantity.unitName}, ${quantity.measurementName}>builder()
+       public static final QuantityUnits<${quantity.quantityName}, ${quantity.unitName}> $StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")_UNITS = QuantityUnits.<${quantity.quantityName}, ${quantity.unitName}>builder()
                         .unit(${quantity.siUnit.instanceName})
 #foreach ($unit in ${quantity.units})
                         .unit(${unit.instanceName})

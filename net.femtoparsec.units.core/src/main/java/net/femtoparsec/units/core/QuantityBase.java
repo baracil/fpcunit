@@ -11,7 +11,6 @@ import net.femtoparsec.units.api.Unit;
 import java.io.ObjectStreamException;
 import java.io.Serial;
 import java.util.List;
-import java.util.NavigableMap;
 import java.util.Optional;
 
 /**
@@ -20,7 +19,7 @@ import java.util.Optional;
  * @author Bastien Aracil
  */
 @RequiredArgsConstructor
-public abstract class QuantityBase<Q extends Quantity<Q, U, M>, U extends Unit<Q, U, M>, M extends Measurement<Q, U, M>> implements Quantity<Q, U, M> {
+public abstract class QuantityBase<Q extends Quantity, U extends Unit<Q>> implements Quantity {
 
   @NonNull
   @Getter(onMethod = @__({@Override}))
@@ -31,12 +30,8 @@ public abstract class QuantityBase<Q extends Quantity<Q, U, M>, U extends Unit<Q
   }
 
 
-  protected abstract QuantityUnits<Q, U, M> getQuantityUnits();
+  protected abstract QuantityUnits<Q, U> getQuantityUnits();
 
-  @Override
-  public U getSIUnit() {
-    return getQuantityUnits().getSiUnit();
-  }
 
   @Override
   public Optional<U> findUnit(String name) {
@@ -49,27 +44,18 @@ public abstract class QuantityBase<Q extends Quantity<Q, U, M>, U extends Unit<Q
     return getQuantityUnits().getUnit(name);
   }
 
-  @Override
-  public NavigableMap<Double, List<U>> getUnitsByFactor() {
-    return this.getQuantityUnits().getUnitsByFactor();
-  }
 
   @Override
-  public Optional<M> safeParseMeasurement(String measurementAsString) {
+  public Optional<? extends Measurement<Q>> safeParseMeasurement(String measurementAsString) {
     return MeasurementParser.parse(measurementAsString)
-        .flatMap(p -> {
-          return this.findUnit(p.unit())
-              .map(u -> u.create(p.value()));
-        });
+        .flatMap(
+            p -> this.findUnit(p.unit())
+                .map(u -> u.create(p.value()))
+        );
   }
 
   protected abstract List<U> getUnits();
 
-
-  @Override
-  public List<U> getAllUnits() {
-    return getUnits();
-  }
 
   protected abstract Q getThis();
 

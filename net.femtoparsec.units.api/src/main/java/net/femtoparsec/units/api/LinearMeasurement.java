@@ -1,24 +1,32 @@
 package net.femtoparsec.units.api;
 
+import java.util.Optional;
+
 /**
  * @author Bastien Aracil
  */
-public interface LinearMeasurement<
-    Q extends Quantity<Q, U, M>,
-    U extends Unit<Q, U, M>,
-    M extends LinearMeasurement<Q, U, M>
-    > extends Measurement<Q, U, M> {
+public interface LinearMeasurement<Q extends Quantity> extends Measurement<Q> {
 
-  M add(M other);
 
-  M subtract(M other);
+  LinearMeasurement<Q> negate();
 
-  M negate();
+  LinearMeasurement<Q> scale(double factor);
 
-  M scale(double factor);
+  LinearMeasurement<Q> abs();
 
-  M abs();
+  double divide(LinearMeasurement<Q> other);
 
-  double divide(M other);
+  LinearMeasurement<Q> add(LinearMeasurement<Q> other);
+
+  LinearMeasurement<Q> subtract(LinearMeasurement<Q> other);
+
+
+  LinearMeasurement<?> unsafeMultiply(LinearMeasurement<?> other);
+
+  LinearMeasurement<?> unsafeDivide(LinearMeasurement<?> other);
+
+  LinearMeasurement<?> unsafeSquare(LinearMeasurement<?> other);
+
+  LinearMeasurement<?> unsafeCubic(LinearMeasurement<?> other);
 
 }

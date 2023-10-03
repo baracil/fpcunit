@@ -4,5 +4,6 @@ module fpc.units.api {
 
   exports net.femtoparsec.units.api;
 
+  opens net.femtoparsec.units.api to fpc.units.core;
 
 }

@@ -14,12 +14,12 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 public class UnitSerializableForm implements Serializable  {
 
-    public static UnitSerializableForm create(@NonNull Unit<?,?,?> unit) {
+    public static UnitSerializableForm create(@NonNull Unit<?> unit) {
         return new UnitSerializableForm(unit.getQuantity(), unit.getName());
     }
 
     @NonNull
-    private final Quantity<?,?,?> quantity;
+    private final Quantity quantity;
 
     @NonNull
     private final String name;

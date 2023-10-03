@@ -1,23 +1,23 @@
 package net.femtoparsec.units.core;
 
-import net.femtoparsec.units.api.*;
+import net.femtoparsec.units.api.Dimension;
+import net.femtoparsec.units.api.Measurement;
+import net.femtoparsec.units.api.Quantity;
+import net.femtoparsec.units.api.Unit;
 
 import java.io.ObjectStreamException;
+import java.io.Serial;
 import java.util.Objects;
 
 /**
  * @author Bastien Aracil
  */
-public abstract class UnitBase<
-    Q extends Quantity<Q,U,M>,
-    U extends Unit<Q,U,M>,
-    M extends Measurement<Q,U,M>
-    > implements Unit<Q,U,M> {
+public abstract class UnitBase<Q extends Quantity> implements Unit<Q> {
 
     /**
      * The reference of the unit in the S.I. system
      */
-    private final U referenceSI;
+    private final Unit<Q> referenceSI;
 
     /**
      * The offset to convert this unit into S.I. system (only not nil for temperature units)
@@ -34,8 +34,6 @@ public abstract class UnitBase<
      */
     private final String name;
 
-    private final MeasurementFactory<Q,U,M> measurementFactory;
-
     private final String prettyName;
 
     /**
@@ -43,9 +41,8 @@ public abstract class UnitBase<
      *
      * @param name  the name of the S.I. unit
      */
-    protected UnitBase(String name, MeasurementFactory<Q, U, M> measurementFactory) {
+    protected UnitBase(String name) {
         this.name = Objects.requireNonNull(name, "name");
-        this.measurementFactory = Objects.requireNonNull(measurementFactory, "measurementFactory");
         this.referenceSI = null;
         this.factorToSI = 1;
         this.offsetToSI = 0;
@@ -64,7 +61,7 @@ public abstract class UnitBase<
      * @param referenceSI the reference S.I. unit
      * @param factorToSI  the factor to convert this unit to S.I. unit
      */
-    protected UnitBase(String name, U referenceSI, double factorToSI) {
+    protected UnitBase(String name, Unit<Q> referenceSI, double factorToSI) {
         this(name, referenceSI, factorToSI, 0);
     }
 
@@ -76,19 +73,16 @@ public abstract class UnitBase<
      * @param factorToSI  the factor to convert this unit to S.I. unit
      * @param offsetToSI  the oddset to convert this unit to S.I. unit (this only applied to temperature unit)
      */
-    protected UnitBase(String name, U referenceSI, double factorToSI, double offsetToSI) {
+    protected UnitBase(String name, Unit<Q> referenceSI, double factorToSI, double offsetToSI) {
         if (factorToSI <= 0) {
             throw new IllegalArgumentException("Invalid factor to convert to SI : " + factorToSI);
         }
         this.referenceSI = Objects.requireNonNull(referenceSI, "referenceSI");
-        this.measurementFactory = this.referenceSI.getMeasurementFactory();
         this.factorToSI = factorToSI;
         this.offsetToSI = offsetToSI;
         this.name = Objects.requireNonNull(name, "name");
         this.prettyName = UnitUtils.format(name);
     }
-
-    protected abstract U getThis();
 
     /**
      * @return true if this unit is an S.I. unit
@@ -102,8 +96,8 @@ public abstract class UnitBase<
      * @return the S.I. unit for this unit (if this is a S.I. unit, this method returns this)
      */
     @Override
-    public U getReferenceSI() {
-        return this.referenceSI == null ? getThis() : this.referenceSI;
+    public Unit<Q> getReferenceSI() {
+        return this.referenceSI == null ? this : this.referenceSI;
     }
 
     @Override
@@ -137,6 +131,9 @@ public abstract class UnitBase<
      */
     @Override
     public double convertFromSI(double value) {
+        if (isSI()) {
+            return value;
+        }
         return value / factorToSI - offsetToSI;
     }
 
@@ -149,7 +146,7 @@ public abstract class UnitBase<
      * @return the value in the new units
      */
     @Override
-    public double convertTo(double value, U unit) {
+    public double convertTo(double value, Unit<Q> unit) {
         if (this == unit) {
             return value;
         }
@@ -165,8 +162,8 @@ public abstract class UnitBase<
      * @return true if this unit is compatible with the other unit, false otherwise
      */
     @Override
-    public boolean isCompatible(Unit<?,?,?> other) {
-        return this.getQuantity() == other.getQuantity();
+    public boolean isCompatible(Unit<?> other) {
+        return appliesTo(other.getQuantity());
     }
 
     @Override
@@ -175,19 +172,12 @@ public abstract class UnitBase<
     }
 
     @Override
-    public boolean appliesTo(Quantity<?,?,?> quantity) {
-        return this.getQuantity() == quantity;
+    public boolean appliesTo(Quantity quantity) {
+        return this.getQuantity().equals(quantity);
     }
 
     @Override
-    public M create(double value) {
-        return this.measurementFactory.create(value, getThis());
-    }
-
-    @Override
-    public MeasurementFactory<Q,U,M> getMeasurementFactory() {
-        return this.measurementFactory;
-    }
+    public abstract Measurement<Q> create(double value);
 
     @Override
     public String getPrettyName() {
@@ -213,15 +203,14 @@ public abstract class UnitBase<
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof UnitBase))
+        if (!(o instanceof UnitBase<?> unit))
             return false;
 
-        UnitBase unit = (UnitBase) o;
-
-        return name.equals(unit.name) && getQuantity() == unit.getQuantity();
+        return name.equals(unit.name) && getQuantity().equals(unit.getQuantity());
 
     }
 
+    @Serial
     protected Object writeReplace() throws ObjectStreamException {
         return UnitSerializableForm.create(this);
     }

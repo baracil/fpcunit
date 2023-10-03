@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class SimpleUnitSystemBuilder implements UnitSystem.Builder {
 
-  private final Set<Unit<?, ?, ?>> units = new HashSet<>();
+  private final Set<Unit<?>> units = new HashSet<>();
 
   @Override
   public UnitSystem build() {
@@ -16,7 +16,7 @@ public class SimpleUnitSystemBuilder implements UnitSystem.Builder {
   }
 
   @Override
-  public UnitSystem.Builder addUnit(Unit<?, ?, ?> unit) {
+  public UnitSystem.Builder addUnit(Unit<?> unit) {
     this.units.add(unit);
     return this;
   }
