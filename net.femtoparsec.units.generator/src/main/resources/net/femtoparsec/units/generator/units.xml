@@ -546,6 +546,7 @@
         <product quantity1="Volume" quantity2="ShearRate" result="FlowRate"/>
 
         <product quantity1="Force" quantity2="Time" result="Impulse"/>
+        <product quantity1="SquaredSpeed" quantity2="Length" result="FlowAcceleration"/>
 
     </operations>
 
