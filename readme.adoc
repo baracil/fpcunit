@@ -1,5 +1,7 @@
 = FPC Units
 
+WARNING: This is not a proper documentation
+
 == Very Short Description
 This library provides objects to manipulate value with unit. Instead of encoding the type of data and its unit in the variable name you can simply use the corresponding class.
 
