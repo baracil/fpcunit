@@ -53,6 +53,7 @@ public abstract class MeasurementBase<Q extends Quantity, M extends MeasurementB
     return createWith(this.getValueInUnit(newUnit),newUnit);
   }
 
+  @Override
   public <NQ extends NamedQuantity<NM>, NM extends Measurement<NQ>> Optional<NM> tryAs(NQ quantity) {
     if (this.getQuantity().hasSameDimension(quantity)) {
       return Optional.ofNullable(quantity.createWithSI(getValueInSI()));
@@ -60,6 +61,7 @@ public abstract class MeasurementBase<Q extends Quantity, M extends MeasurementB
     return Optional.empty();
   }
 
+  @Override
   public <NQ extends NamedQuantity<NM>, NM extends Measurement<NQ>> NM as(NQ quantity) {
     return tryAs(quantity).orElseThrow(() -> new IncompatibleDimension(this.getDimension(), quantity.getDimension()));
   }

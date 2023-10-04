@@ -36,6 +36,8 @@ public interface Measurement<Q extends Quantity> extends Comparable<Measurement<
 
     <NQ extends NamedQuantity<M>, M extends Measurement<NQ>> Optional<M> tryAs(NQ quantity);
 
+    <NQ extends NamedQuantity<M>, M extends Measurement<NQ>> M as(NQ quantity);
+
     /**
      * @param otherUnit a unit
      * @return the value of this measurement in the provided unit
