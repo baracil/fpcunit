@@ -11,12 +11,17 @@ package ${generationPath.basePackageName}.named;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import net.femtoparsec.units.api.Measurement;
+import net.femtoparsec.units.api.NamedQuantity;
 import net.femtoparsec.units.api.Quantity;
 import net.femtoparsec.units.api.Unit;
-import net.femtoparsec.units.core.QuantityConsumer;
-import net.femtoparsec.units.core.QuantityFunction;
+import net.femtoparsec.units.core.NamedQuantityConsumer;
+import net.femtoparsec.units.core.NamedQuantityFunction;
 import ${generationPath.basePackageName}.named.quantity.*;
 
 public final class Quantities {
@@ -24,18 +29,31 @@ public final class Quantities {
     public static final ${quantity.quantityName} $StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY") = ${quantity.quantityName}.INSTANCE;
 #end
 
-    public static <T> List<T> apply(QuantityFunction<T> function) {
-        final List<T> list = new ArrayList<>(${quantities.size()});
-        accept(quantity -> list.add(function.apply(quantity)));
+    public static <T> List<T> apply(NamedQuantityFunction<T> function) {
+        final List<T> list = new ArrayList<>(44);
+        accept(new NamedQuantityConsumer() {
+                @Override
+                public <Q extends NamedQuantity<M>, M extends Measurement<?>> void accept(Class<Q> quantityType, Q quantity) {
+                        list.add(function.apply(quantityType, quantity));
+                }
+        });
         return list;
     }
 
-    public static void accept(QuantityConsumer consumer) {
+    public static void accept(NamedQuantityConsumer consumer) {
         #foreach ($quantity in ${quantities})
-            consumer.accept($StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY"));
+            consumer.accept(${quantity.quantityName}.class, $StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY"));
         #end
     }
 
 
-
+    public static final Map<String, Quantity> QUANTITIES_BY_NAME = Stream.of(
+        #foreach ($quantity in ${quantities})
+            #if($foreach.index > 0)
+                ,$StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")
+            #else
+                $StringUtils.humpAndRemove(${quantity.quantityName}, "_QUANTITY")
+            #end
+        #end
+        ).collect(Collectors.toUnmodifiableMap(Quantity::getName, Function.identity()));
 }

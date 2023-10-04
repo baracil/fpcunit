@@ -42,6 +42,16 @@ public final class ${quantity.quantityName} extends QuantityBase<${quantity.quan
         return new ${quantity.measurementName}(siValue,Units.${quantity.siUnit.instanceName});
     }
 
+    @Override
+    public String getName() {
+        return "${quantity.name}";
+    }
+
+    @Override
+    public Class<${quantity.measurementName}> getMeasurementType() {
+        return ${quantity.measurementName}.class;
+    }
+
 
 @Override
     protected List<${quantity.unitName}> getUnits() {

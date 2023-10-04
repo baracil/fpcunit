@@ -47,4 +47,5 @@ public interface Quantity extends Dimensioned, Serializable {
    */
   Optional<? extends Measurement<?>> safeParseMeasurement(String measurementAsString);
 
+  String getName();
 }

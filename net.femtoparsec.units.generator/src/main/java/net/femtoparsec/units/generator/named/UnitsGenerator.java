@@ -26,7 +26,6 @@ public class UnitsGenerator extends AbstractUnitGenerator {
 
     private Path outputPath;
 
-    @Override
     public void generate() {
         this.validateQuantities();
 

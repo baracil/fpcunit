@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>net.femtoparsec.units</groupId>
+    <artifactId>units</artifactId>
+    <version>1.0.3-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>units-json</artifactId>
+  <version>1.0.3-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>${application.name} - ${module.name}</name>
+
+  <properties>
+    <module.name>Json I/O</module.name>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>net.femtoparsec.units</groupId>
+      <artifactId>units-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.femtoparsec.units</groupId>
+      <artifactId>units-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.femtoparsec.units</groupId>
+      <artifactId>units-named</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+
+
+  </dependencies>
+
+
+
+</project>

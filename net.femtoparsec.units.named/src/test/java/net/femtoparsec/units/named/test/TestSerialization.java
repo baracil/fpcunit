@@ -1,8 +1,10 @@
 package net.femtoparsec.units.named.test;
 
 import net.femtoparsec.units.api.Measurement;
+import net.femtoparsec.units.api.NamedQuantity;
 import net.femtoparsec.units.api.Quantity;
 import net.femtoparsec.units.api.Unit;
+import net.femtoparsec.units.core.NamedQuantityFunction;
 import net.femtoparsec.units.named.Quantities;
 import net.femtoparsec.units.named.Units;
 import net.femtoparsec.units.named.measurement.Length;
@@ -18,8 +20,13 @@ import java.util.stream.Stream;
  */
 public class TestSerialization extends AbstractTestSerialization {
 
-  public static Stream<Quantity> quantities() {
-    return Quantities.apply(q -> q).stream();
+  public static Stream<? extends NamedQuantity<?>> quantities() {
+    return Quantities.apply(new NamedQuantityFunction<NamedQuantity<?>>() {
+      @Override
+      public <Q extends NamedQuantity<M>, M extends Measurement<?>> NamedQuantity<?> apply(Class<Q> quantityType, Q quantity) {
+        return quantity;
+      }
+    }).stream();
   }
 
   public static Stream<Unit<?>> units() {

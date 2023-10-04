@@ -3,6 +3,7 @@ package net.femtoparsec.units.generator.named;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import net.femtoparsec.units.generator.GenerationPath;
+import net.femtoparsec.units.generator.Generator;
 import net.femtoparsec.units.generator.UnitGenerator;
 import net.femtoparsec.units.generator.bean.Quantity;
 import net.femtoparsec.units.generator.parsing.JacksonQuantityReader;
@@ -15,27 +16,30 @@ import java.util.List;
  * @author Bastien Aracil
  */
 @RequiredArgsConstructor
-public class NamedGenerator implements UnitGenerator {
+public class NamedGenerator implements Generator {
 
-    public static NamedGenerator create(@NonNull Path generationSourcePath, @NonNull String basePackageName) throws IOException {
-        final var generationPah = new GenerationPath(generationSourcePath,basePackageName);
-        final var quantities = new JacksonQuantityReader().read();
-        return new NamedGenerator(quantities,generationPah);
-    }
-
-    private final List<Quantity> quantities;
-    private final GenerationPath generationPath;
 
     @Override
-    public void generate() throws IOException {
-        new UnitsGenerator(quantities, generationPath).generate();
-        new QuantitiesGenerator(quantities, generationPath).generate();
-        quantities.forEach(this::generate);
+    public void generate(@NonNull List<Quantity> quantities, @NonNull GenerationPath generationPath) throws IOException {
+        new GeneratorExecution(quantities,generationPath).generate();;
     }
 
-    private void generate(Quantity quantity) {
-        new QuantiyClassGenerator(quantity, generationPath).generate();
-        new UnitClassGenerator(quantity, generationPath).generate();
-        new MeasurementClassGenerator(quantity, generationPath).generate();
+    @RequiredArgsConstructor
+    private static class GeneratorExecution {
+
+        private final List<Quantity> quantities;
+        private final GenerationPath generationPath;
+
+        public void generate()  {
+            new UnitsGenerator(quantities, generationPath).generate();
+            new QuantitiesGenerator(quantities, generationPath).generate();
+            quantities.forEach(this::generate);
+        }
+
+        private void generate(Quantity quantity) {
+            new QuantiyClassGenerator(quantity, generationPath).generate();
+            new UnitClassGenerator(quantity, generationPath).generate();
+            new MeasurementClassGenerator(quantity, generationPath).generate();
+        }
     }
 }

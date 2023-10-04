@@ -1,0 +1,16 @@
+package ${generationPath.basePackageName}.json;
+#* @vtlvariable name="quantity" type="net.femtoparsec.units.generator.bean.Quantity" *#
+#* @vtlvariable name="generationPath" type="net.femtoparsec.units.generator.GenerationPath" *#
+#* @vtlvariable name="quantities" type="net.femtoparsec.units.generator.bean.Quantity[]" *#
+#* @vtlvariable name="StringUtils" type="net.femtoparsec.units.generator.StringUtils" *#
+
+
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import net.femtoparsec.units.named.Quantities;
+
+public final class ${className} extends SimpleModule {
+
+    public UnitModule() {
+        Quantities.accept(q -> new QuantitySerDes<>(q.getClass()).register(this));
+    }
+}

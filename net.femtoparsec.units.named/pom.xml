@@ -21,9 +21,18 @@
   <dependencies>
     <dependency>
       <groupId>net.femtoparsec.units</groupId>
+      <artifactId>units-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.femtoparsec.units</groupId>
       <artifactId>units-core</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -58,7 +67,7 @@
             </goals>
             <configuration>
               <includeProjectDependencies>true</includeProjectDependencies>
-              <mainClass>net.femtoparsec.units.generator.Generator</mainClass>
+              <mainClass>net.femtoparsec.units.generator.Main</mainClass>
               <arguments>
                 <argument>named</argument>
                 <argument>${project.build.directory}/generated-sources/java</argument>

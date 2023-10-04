@@ -16,6 +16,11 @@ public class UnsafeQuantity implements Quantity {
   private final Dimension dimension;
 
   @Override
+  public String getName() {
+    return "Unsafe : "+dimension.getEncoded();
+  }
+
+  @Override
   public Optional<UnsafeUnit> findUnit(String name) {
     if (UnsafeUnit.NAME.equals(name)) {
       return Optional.of(new UnsafeUnit(this));
