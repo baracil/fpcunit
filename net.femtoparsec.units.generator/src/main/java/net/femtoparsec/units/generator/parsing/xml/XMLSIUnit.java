@@ -13,12 +13,12 @@ import lombok.ToString;
 @Getter
 @Setter
 public final class XMLSIUnit extends XMLAbstractUnit {
-  @JacksonXmlProperty(isAttribute = true)
-  @JsonAlias("unit-name")
-  private String unitName;
-
-  @JacksonXmlProperty(isAttribute = true)
-  @JsonAlias("instance-name")
-  private String instanceName;
+//  @JacksonXmlProperty(isAttribute = true)
+//  @JsonAlias("unit-name")
+//  private String unitName;
+//
+//  @JacksonXmlProperty(isAttribute = true)
+//  @JsonAlias("instance-name")
+//  private String instanceName;
 
 }

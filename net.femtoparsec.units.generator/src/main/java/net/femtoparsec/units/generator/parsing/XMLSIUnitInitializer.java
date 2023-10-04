@@ -20,7 +20,7 @@ public class XMLSIUnitInitializer extends XMLAbstractUnitInitializer<XMLSIUnit> 
 
     private void initializeName() {
         if (this.getXmlUnit().getUnitName() == null) {
-            getXmlUnit().setUnitName(getQuantity().getDimension());
+            throw new IllegalArgumentException("The unit with name '"+this.getXmlUnit().getInstanceName()+" as no unit defined");
         }
     }
 

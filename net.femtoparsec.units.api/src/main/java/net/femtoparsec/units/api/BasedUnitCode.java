@@ -6,15 +6,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum BasedUnitCode {
-  MASS("kg",0),
-  LENGTH("m",1),
-  TIME("s",2),
-  AMPERE("A",3),
+  MASS("M",0),
+  LENGTH("L",1),
+  TIME("T",2),
+  AMPERE("I",3),
   TEMPERATURE("K",4),
   DELTA_TEMPERATURE("dK",5),
-  MOLE("mol",6),
-  CANDELA("cd",7),
-  ANGLE("rad",8),
+  MOLE("N",6),
+  CANDELA("J",7),
+  ANGLE("°",8),
   ;
 
   private final String code;

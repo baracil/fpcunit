@@ -15,15 +15,15 @@ public class DimensionDecodingTest {
 
   public static Stream<Arguments> samples() {
     return Stream.of(
-        Arguments.of("kg^2.m^-1", MASS, 2),
-        Arguments.of("kg^2.m^-1", LENGTH, -1),
-        Arguments.of("kg^2.m^-1", TIME, 0),
-        Arguments.of("kg^2.m^-2.kg^2.m^-1", MASS, 4),
-        Arguments.of("kg^2.m^-2.kg^2.m^-1", LENGTH, -3),
-        Arguments.of("m.s^-2", LENGTH, 1),
-        Arguments.of("m.s^-2", TIME, -2),
-        Arguments.of("A^0.cd", CANDELA, 1),
-        Arguments.of("A^0.cd", AMPERE, 0)
+        Arguments.of("M^2.L^-1", MASS, 2),
+        Arguments.of("M^2.L^-1", LENGTH, -1),
+        Arguments.of("M^2.L^-1", TIME, 0),
+        Arguments.of("M^2.L^-2.M^2.L^-1", MASS, 4),
+        Arguments.of("M^2.L^-2.M^2.L^-1", LENGTH, -3),
+        Arguments.of("L.T^-2", LENGTH, 1),
+        Arguments.of("L.T^-2", TIME, -2),
+        Arguments.of("I^0.J", CANDELA, 1),
+        Arguments.of("I^0.J", AMPERE, 0)
     );
   }
 

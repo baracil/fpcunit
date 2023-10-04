@@ -91,11 +91,7 @@
     <xsd:complexType name="SIUnit" >
         <xsd:complexContent>
             <xsd:extension base="u:BaseUnit">
-                <xsd:attribute name="unit-name" type="xsd:string" use="optional" default="">
-                    <xsd:annotation>
-                        <xsd:documentation>If not specify, the dimension of the associated quantity will be use as name</xsd:documentation>
-                    </xsd:annotation>
-                </xsd:attribute>
+                <xsd:attribute name="unit-name" type="xsd:string" use="required"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
